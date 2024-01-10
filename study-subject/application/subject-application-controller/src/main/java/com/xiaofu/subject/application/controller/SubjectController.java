@@ -2,7 +2,6 @@ package com.xiaofu.subject.application.controller;
 
 import com.xiaofu.subject.infra.basic.entity.SubjectCategory;
 import com.xiaofu.subject.infra.basic.service.SubjectCategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
