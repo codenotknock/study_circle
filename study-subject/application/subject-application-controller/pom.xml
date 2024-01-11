@@ -3,18 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.xiaofu</groupId>
-        <artifactId>study-subject</artifactId>
+        <artifactId>application</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath/>
     </parent>
     <artifactId>subject-application-controller</artifactId>
     <name>subject-application-controller</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.xiaofu</groupId>
-            <artifactId>infra</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 </project>

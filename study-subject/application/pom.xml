@@ -6,6 +6,31 @@
         <artifactId>study-subject</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+    <packaging>pom</packaging>
     <artifactId>application</artifactId>
+    <name>application</name>
 
+    <modules>
+        <module>subject-application-controller</module>
+        <module>subject-application-job</module>
+        <module>subject-application-mq</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.xiaofu</groupId>
+            <artifactId>infra</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.alibaba</groupId>
+                    <artifactId>druid-spring-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
 </project>

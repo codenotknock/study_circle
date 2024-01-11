@@ -42,4 +42,4 @@ privateKey: MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAiE7tmjbhEiSWzUpOujKY
 
 # 集成日志
 logging:
-  config: classpath:log4j2-spring.xml
+  config: classpath:log4j2.xml

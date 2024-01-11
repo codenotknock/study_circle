@@ -16,9 +16,6 @@
     <module>domain</module>
     <module>infra</module>
     <module>starter</module>
-    <module>application/subject-application-controller</module>
-    <module>application/subject-application-job</module>
-    <module>application/subject-application-mq</module>
   </modules>
 
   <properties>
