@@ -55,6 +55,12 @@ public class Result <T>{
                 .code(ResultCodeEnum.FAIL.code())
                 .message(ResultCodeEnum.FAIL.desc());
     }
+    public final static <T> Result<T> fail(String message) {
+        return new Result()
+                .success(Boolean.FALSE)
+                .code(ResultCodeEnum.FAIL.code())
+                .message(message);
+    }
     public final static <T> Result<T> fail(int code, String message) {
         return new Result()
                 .success(Boolean.FALSE)

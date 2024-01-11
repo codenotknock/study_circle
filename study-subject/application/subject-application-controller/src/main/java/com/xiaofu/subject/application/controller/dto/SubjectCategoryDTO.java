@@ -1,6 +1,9 @@
 package com.xiaofu.subject.application.controller.dto;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -9,7 +12,9 @@ import java.io.Serializable;
  * @date 2024/1/11 22:41
  * @des
  */
-@Getter
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 public class SubjectCategoryDTO  implements Serializable {
 
     private static final long serialVersionUID = 1L;

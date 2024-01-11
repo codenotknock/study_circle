@@ -5,6 +5,8 @@ import com.xiaofu.subject.infra.basic.entity.SubjectCategory;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 /**
  * @author xiaofu
  * @date 2024/1/11 21:58
@@ -16,4 +18,6 @@ public interface SubjectCategoryBOConverter {
     SubjectCategoryBOConverter INSTANCE = Mappers.getMapper(SubjectCategoryBOConverter.class);
 
     SubjectCategory covertBoToCategory(SubjectCategoryBO subjectCategoryBO);
+
+    List<SubjectCategoryBO> covertCategoryToBoList( List<SubjectCategory> subjectCategoryList);
 }

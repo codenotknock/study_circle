@@ -7,6 +7,7 @@ import com.xiaofu.subject.infra.basic.service.SubjectCategoryService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 题目分类表(SubjectCategory)表服务实现类
@@ -64,5 +65,12 @@ public class SubjectCategoryServiceImpl extends ServiceImpl<SubjectCategoryMappe
     @Override
     public boolean deleteById(Long id) {
         return this.subjectCategoryMapper.deleteById(id) > 0;
+    }
+
+    @Override
+    public List<SubjectCategory> queryPrimaryCategory() {
+        return this.lambdaQuery()
+                .eq(SubjectCategory::getParentId, 0)
+                .list();
     }
 }
