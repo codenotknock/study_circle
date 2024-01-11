@@ -33,8 +33,9 @@
 <!--    工具相关-->
     <knife4j>2.0.8</knife4j>
     <lombok>1.18.18</lombok>
-    <mapstruct>1.4.1.Final</mapstruct>
+    <mapstruct>1.4.2.Final</mapstruct>
     <fastjson>1.2.24</fastjson>
+    <guava>29.0-jre</guava>
   </properties>
 
 
@@ -67,6 +68,22 @@
         <version>${fastjson}</version>
       </dependency>
 
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>${mapstruct}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct-processor</artifactId>
+        <version>${mapstruct}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava}</version>
+      </dependency>
 
       <!--swagger ui-->
       <dependency>
@@ -129,6 +146,11 @@
               <groupId>org.mapstruct</groupId>
               <artifactId>mapstruct-processor</artifactId>
               <version>${mapstruct}</version>
+            </path>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok-mapstruct-binding</artifactId>
+              <version>0.2.0</version>
             </path>
           </annotationProcessorPaths>
         </configuration>

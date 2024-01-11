@@ -10,4 +10,13 @@
     <artifactId>subject-application-controller</artifactId>
     <name>subject-application-controller</name>
 
+    <dependencies>
+        <!--        swagger ui-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
 </project>

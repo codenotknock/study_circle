@@ -10,12 +10,6 @@
     <name>subject-api</name>
 
     <dependencies>
-        <!--        lombok-->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <!--        swagger ui-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
