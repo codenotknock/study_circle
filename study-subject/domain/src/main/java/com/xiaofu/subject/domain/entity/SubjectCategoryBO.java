@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
  * @since 2024-01-11
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class SubjectCategoryBO implements Serializable {
 

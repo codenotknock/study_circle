@@ -43,3 +43,19 @@ privateKey: MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAiE7tmjbhEiSWzUpOujKY
 # 集成日志
 logging:
   config: classpath:log4j2.xml
+
+# mybatis-plus 配置
+mybatis-plus:
+  type-aliases-package: com.xiaofu.subject.infra.basic.entity
+  mapper-locations: classpath*:mapper/**/*.xml
+  global-config:
+    db-config:
+      logicDeleteField: isDeleted # 对应的实体类值的逻辑删除字段名
+      logicDeleteValue: 1
+      logicNotDeleteValue: 0
+      insert-strategy: not_null
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+    auto-mapping-unknown-column-behavior: warning
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志

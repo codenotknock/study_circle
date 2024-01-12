@@ -16,7 +16,7 @@ public class SubjectController {
     private SubjectCategoryService subjectCategoryService;
 
     public String test() {
-        SubjectCategory subjectCategory = subjectCategoryService.queryById(14L);
+        SubjectCategory subjectCategory = subjectCategoryService.getById(14L);
         System.out.println(subjectCategory);
         return "test... hello world !!";
 

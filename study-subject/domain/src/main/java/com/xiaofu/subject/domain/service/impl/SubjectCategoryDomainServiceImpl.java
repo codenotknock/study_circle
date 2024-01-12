@@ -20,17 +20,24 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
     @Autowired
     private SubjectCategoryService subjectCategoryService;
 
-    @Override
-    public void add(SubjectCategoryBO subjectCategoryBO) {
-        SubjectCategory subjectCategory = SubjectCategoryBOConverter.INSTANCE.covertBoToCategory(subjectCategoryBO);
-        subjectCategoryService.insert(subjectCategory);
-    }
 
     @Override
-    public List<SubjectCategoryBO> queryPrimaryCategory() {
-        List<SubjectCategory> subjectCategoryList = subjectCategoryService.queryPrimaryCategory();
+    public List<SubjectCategoryBO> queryCategory(SubjectCategoryBO subjectCategoryBO) {
+        SubjectCategory subjectCategory = SubjectCategoryBOConverter.INSTANCE.covertBoToCategory(subjectCategoryBO);
+        List<SubjectCategory> subjectCategoryList = subjectCategoryService.queryCategory(subjectCategory);
         List<SubjectCategoryBO> subjectCategoryBOList = SubjectCategoryBOConverter.INSTANCE.covertCategoryToBoList(subjectCategoryList);
 
         return subjectCategoryBOList;
+    }
+
+    @Override
+    public boolean saveOrUpdate(SubjectCategoryBO subjectCategoryBO) {
+        SubjectCategory subjectCategory = SubjectCategoryBOConverter.INSTANCE.covertBoToCategory(subjectCategoryBO);
+        return subjectCategoryService.saveOrUpdate(subjectCategory);
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        return subjectCategoryService.removeById(id);
     }
 }

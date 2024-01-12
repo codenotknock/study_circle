@@ -1,8 +1,6 @@
 package com.xiaofu.subject.application.controller.dto;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -13,7 +11,6 @@ import java.io.Serializable;
  * @des
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class SubjectCategoryDTO  implements Serializable {
 

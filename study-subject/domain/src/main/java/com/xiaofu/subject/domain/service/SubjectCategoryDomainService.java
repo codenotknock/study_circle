@@ -6,13 +6,20 @@ import java.util.List;
 
 public interface SubjectCategoryDomainService {
 
-    void add(SubjectCategoryBO subjectCategoryBO);
 
     /**
      * @des 查询题目分类的大类
      * @param
-     * @return
+     * @return List<SubjectCategoryBO>
      */
+    List<SubjectCategoryBO> queryCategory(SubjectCategoryBO subjectCategoryBO);
 
-    List<SubjectCategoryBO> queryPrimaryCategory();
+    /**
+     * @des 更新或者新增分类
+     * @param
+     * @return List<SubjectCategoryBO>
+     */
+    boolean saveOrUpdate(SubjectCategoryBO subjectCategoryBO);
+
+    boolean delete(Long id);
 }
