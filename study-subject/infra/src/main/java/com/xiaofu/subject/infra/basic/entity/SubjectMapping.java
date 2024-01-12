@@ -20,7 +20,6 @@ import lombok.experimental.Accessors;
 @TableName("subject_mapping")
 public class SubjectMapping extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
 
     /**
      * 题目id
@@ -39,6 +38,5 @@ public class SubjectMapping extends BaseEntity {
      */
     @TableField("label_id")
     private Long labelId;
-
 
 }
