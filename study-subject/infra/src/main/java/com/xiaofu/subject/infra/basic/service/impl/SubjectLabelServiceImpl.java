@@ -21,7 +21,7 @@ import java.util.List;
 public class SubjectLabelServiceImpl extends ServiceImpl<SubjectLabelMapper, SubjectLabel> implements SubjectLabelService {
 
     @Override
-    public List<SubjectLabel> queryLabelByCategoryId(Long categoryId) {
+    public List<SubjectLabel> queryByCategoryId(Long categoryId) {
         return this.lambdaQuery()
                 .eq(SubjectLabel::getCategoryId, categoryId)
                 .list();

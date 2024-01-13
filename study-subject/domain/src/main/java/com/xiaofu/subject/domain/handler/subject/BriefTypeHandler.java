@@ -2,6 +2,7 @@ package com.xiaofu.subject.domain.handler.subject;
 
 import com.xiaofu.subject.common.enums.SubjectInfoTypeEnum;
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
+import com.xiaofu.subject.domain.entity.SubjectOptionBO;
 import com.xiaofu.subject.domain.handler.SubjectTypeHandler;
 import com.xiaofu.subject.infra.basic.entity.SubjectBrief;
 import com.xiaofu.subject.infra.basic.service.SubjectBriefService;
@@ -30,5 +31,11 @@ public class BriefTypeHandler implements SubjectTypeHandler {
         subjectBrief.setSubjectAnswer(subjectInfoBO.getSubjectAnswer());
         subjectBriefService.save(subjectBrief);
 
+    }
+
+    @Override
+    public SubjectOptionBO query(int subjectId) {
+        SubjectBrief subjectBrief = subjectBriefService.lambdaQuery().eq(SubjectBrief::getSubjectId, subjectId).one();
+        return new SubjectOptionBO().setSubjectAnswer(subjectBrief.getSubjectAnswer());
     }
 }

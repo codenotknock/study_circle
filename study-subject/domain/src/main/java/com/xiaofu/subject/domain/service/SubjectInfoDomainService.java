@@ -17,4 +17,6 @@ public interface SubjectInfoDomainService {
 
 
     PageResult<SubjectInfoBO> getSubjectPage(SubjectInfoBO subjectInfoBO);
+
+    SubjectInfoBO querySubjectInfo(SubjectInfoBO subjectInfoBO);
 }

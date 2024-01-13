@@ -3,13 +3,16 @@ package com.xiaofu.subject.domain.handler.subject;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.xiaofu.subject.common.enums.SubjectInfoTypeEnum;
 import com.xiaofu.subject.domain.covert.SubjectRadioConverter;
+import com.xiaofu.subject.domain.entity.SubjectAnswerBO;
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
+import com.xiaofu.subject.domain.entity.SubjectOptionBO;
 import com.xiaofu.subject.domain.handler.SubjectTypeHandler;
 import com.xiaofu.subject.infra.basic.entity.SubjectRadio;
 import com.xiaofu.subject.infra.basic.service.SubjectRadioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,5 +46,12 @@ public class RadioTypeHandler implements SubjectTypeHandler {
         });
         subjectRadioService.saveBatch(subjectRadioList);
 
+    }
+
+    @Override
+    public SubjectOptionBO query(int subjectId) {
+        SubjectRadio subjectRadio = subjectRadioService.lambdaQuery().eq(SubjectRadio::getSubjectId, subjectId).one();
+        SubjectAnswerBO subjectAnswerBO = SubjectRadioConverter.INSTANCE.covertEntityToBo(subjectRadio);
+        return new SubjectOptionBO().setOptionList(Collections.singletonList(subjectAnswerBO));
     }
 }

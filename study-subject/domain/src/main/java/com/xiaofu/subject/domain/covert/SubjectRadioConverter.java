@@ -19,6 +19,8 @@ public interface SubjectRadioConverter {
 
     SubjectRadio covertBoToEntity(SubjectAnswerBO subjectAnswerBO);
 
+    SubjectAnswerBO covertEntityToBo(SubjectRadio subjectRadio);
+
     List<SubjectAnswerBO> covertEntityToBoList(List<SubjectRadio> subjectRadioList);
 
 }

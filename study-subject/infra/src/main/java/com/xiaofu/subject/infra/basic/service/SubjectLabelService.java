@@ -3,7 +3,6 @@ package com.xiaofu.subject.infra.basic.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xiaofu.subject.infra.basic.entity.SubjectLabel;
-import com.xiaofu.subject.infra.basic.mapper.SubjectLabelMapper;
 
 import java.util.List;
 
@@ -17,5 +16,5 @@ import java.util.List;
  */
 public interface SubjectLabelService extends IService<SubjectLabel> {
 
-    List<SubjectLabel> queryLabelByCategoryId(Long categoryId);
+    List<SubjectLabel> queryByCategoryId(Long categoryId);
 }

@@ -2,13 +2,17 @@ package com.xiaofu.subject.domain.handler.subject;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.xiaofu.subject.common.enums.SubjectInfoTypeEnum;
+import com.xiaofu.subject.domain.covert.SubjectJudgeConverter;
 import com.xiaofu.subject.domain.entity.SubjectAnswerBO;
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
+import com.xiaofu.subject.domain.entity.SubjectOptionBO;
 import com.xiaofu.subject.domain.handler.SubjectTypeHandler;
 import com.xiaofu.subject.infra.basic.entity.SubjectJudge;
 import com.xiaofu.subject.infra.basic.service.SubjectJudgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
 
 /**
  * @author xiaofu
@@ -37,5 +41,12 @@ public class JudgeTypeHandler implements SubjectTypeHandler {
         subjectJudge.setIsCorrect(subjectAnswerBO.getIsCorrect());
         subjectJudgeService.save(subjectJudge);
 
+    }
+
+    @Override
+    public SubjectOptionBO query(int subjectId) {
+        SubjectJudge subjectJudge = subjectJudgeService.lambdaQuery().eq(SubjectJudge::getSubjectId, subjectId).one();
+        SubjectAnswerBO subjectAnswerBO = SubjectJudgeConverter.INSTANCE.covertEntityToBo(subjectJudge);
+        return new SubjectOptionBO().setOptionList(Collections.singletonList(subjectAnswerBO));
     }
 }

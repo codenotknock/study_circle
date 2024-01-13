@@ -1,6 +1,7 @@
 package com.xiaofu.subject.domain.covert;
 
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
+import com.xiaofu.subject.domain.entity.SubjectOptionBO;
 import com.xiaofu.subject.infra.basic.entity.SubjectInfo;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -18,6 +19,8 @@ public interface SubjectInfoBOConverter {
     SubjectInfoBOConverter  INSTANCE = Mappers.getMapper(SubjectInfoBOConverter.class);
 
     SubjectInfo covertBoToEntity(SubjectInfoBO subjectInfoBO);
+
+    SubjectInfoBO covertEntityToBo(SubjectOptionBO optionBO, SubjectInfo subjectInfo);
 
     List<SubjectInfoBO> covertEntityToBoList(List<SubjectInfo> subjectInfoList);
 

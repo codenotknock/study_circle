@@ -91,4 +91,25 @@ public class SubjectController {
     }
 
 
+    @ApiOperation(value = "查询题目信息")
+        @PostMapping("/querySubjectInfo")
+    public Result<SubjectInfoDTO> querySubjectInfo(@RequestBody SubjectInfoDTO subjectInfoDTO) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("SubjectController.querySubjectInfo.dto:{}", JSON.toJSONString(subjectInfoDTO));
+            }
+            Preconditions.checkNotNull(subjectInfoDTO.getId(), "题目id不能为空");
+
+            SubjectInfoBO subjectInfoBO = SubjectInfoDTOConverter.INSTANCE.convertDtoToBo(subjectInfoDTO);
+            SubjectInfoBO infoBO = subjectInfoDomainService.querySubjectInfo(subjectInfoBO);
+            if (null == infoBO) {
+                return Result.ok();
+            }
+            SubjectInfoDTO infoDTO = SubjectInfoDTOConverter.INSTANCE.convertBoToDto(infoBO);
+            return Result.ok(infoDTO);
+        } catch (Exception e) {
+            log.error("SubjectCategoryController.add.error:{}", e.getMessage(), e);
+            return Result.fail("查询题目详情失败");
+        }
+    }
 }

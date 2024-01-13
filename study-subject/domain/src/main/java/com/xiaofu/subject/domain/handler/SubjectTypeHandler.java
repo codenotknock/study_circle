@@ -2,6 +2,7 @@ package com.xiaofu.subject.domain.handler;
 
 import com.xiaofu.subject.common.enums.SubjectInfoTypeEnum;
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
+import com.xiaofu.subject.domain.entity.SubjectOptionBO;
 
 /**
  * @author xiaofu
@@ -24,5 +25,5 @@ public interface SubjectTypeHandler {
     void add(SubjectInfoBO subjectInfoBO);
 
 
-
+    SubjectOptionBO query(int subjectId);
 }

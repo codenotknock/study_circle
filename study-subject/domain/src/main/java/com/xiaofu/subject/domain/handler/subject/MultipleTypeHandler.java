@@ -3,7 +3,9 @@ package com.xiaofu.subject.domain.handler.subject;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.xiaofu.subject.common.enums.SubjectInfoTypeEnum;
 import com.xiaofu.subject.domain.covert.SubjectMultipleConverter;
+import com.xiaofu.subject.domain.entity.SubjectAnswerBO;
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
+import com.xiaofu.subject.domain.entity.SubjectOptionBO;
 import com.xiaofu.subject.domain.handler.SubjectTypeHandler;
 import com.xiaofu.subject.infra.basic.entity.SubjectMultiple;
 import com.xiaofu.subject.infra.basic.service.SubjectMultipleService;
@@ -41,5 +43,12 @@ public class MultipleTypeHandler implements SubjectTypeHandler {
         });
         subjectMultipleService.saveBatch(subjectMultipleList);
 
+    }
+
+    @Override
+    public SubjectOptionBO query(int subjectId) {
+        List<SubjectMultiple> subjectMultipleList = subjectMultipleService.lambdaQuery().eq(SubjectMultiple::getSubjectId, subjectId).list();
+        List<SubjectAnswerBO> subjectAnswerBOList = SubjectMultipleConverter.INSTANCE.covertEntityToBoList(subjectMultipleList);
+        return new SubjectOptionBO().setOptionList(subjectAnswerBOList);
     }
 }

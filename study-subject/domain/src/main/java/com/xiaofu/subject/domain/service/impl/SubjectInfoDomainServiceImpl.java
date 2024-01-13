@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaofu.subject.common.entity.page.PageResult;
 import com.xiaofu.subject.domain.covert.SubjectInfoBOConverter;
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
+import com.xiaofu.subject.domain.entity.SubjectOptionBO;
 import com.xiaofu.subject.domain.handler.SubjectTypeHandler;
 import com.xiaofu.subject.domain.handler.subject.SubjectTypeHandlerFactory;
 import com.xiaofu.subject.domain.service.SubjectInfoDomainService;
@@ -19,7 +20,9 @@ import com.xiaofu.subject.infra.basic.service.SubjectMappingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +51,7 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
     private SubjectLabelService subjectLabelService;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void add(SubjectInfoBO subjectInfoBO) {
         if (log.isInfoEnabled()) {
             log.info("SubjectInfoDomainServiceImpl.add.bo:{}", JSON.toJSON(subjectInfoBO));
@@ -104,10 +108,27 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
             for (Long labelId : ids) {
                 labelNames.add(labelIdToName.get(labelId));
             }
-            item.setLabelNames(labelNames);
+            item.setLabelName(labelNames);
         });
 
 
         return new PageResult<>(subjectInfoBOList);
+    }
+
+    @Override
+    public SubjectInfoBO querySubjectInfo(SubjectInfoBO subjectInfoBO) {
+        SubjectInfo subjectInfo = subjectInfoService.getById(subjectInfoBO.getId());
+        if (null == subjectInfo) {
+            return null;
+        }
+        SubjectTypeHandler handler = subjectTypeHandlerFactory.getHandler(subjectInfo.getSubjectType());
+        SubjectOptionBO optionBO = handler.query(subjectInfo.getId().intValue());
+        SubjectInfoBO infoBO = SubjectInfoBOConverter.INSTANCE.covertEntityToBo(optionBO, subjectInfo);
+        List<SubjectMapping> subjectMappingList = subjectMappingService.queryBySubjectIds(Collections.singletonList(subjectInfo.getId()));
+        List<Long> labelIds = subjectMappingList.stream().map(SubjectMapping::getLabelId).collect(Collectors.toList());
+        List<SubjectLabel> labelList = subjectLabelService.listByIds(labelIds);
+        List<String> labelName = labelList.stream().map(SubjectLabel::getLabelName).collect(Collectors.toList());
+        infoBO.setLabelName(labelName);
+        return infoBO;
     }
 }

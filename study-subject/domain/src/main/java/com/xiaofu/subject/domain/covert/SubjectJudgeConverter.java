@@ -19,6 +19,8 @@ public interface SubjectJudgeConverter {
 
     SubjectJudge covertBoToEntity(SubjectAnswerBO subjectAnswerBO);
 
+    SubjectAnswerBO covertEntityToBo(SubjectJudge subjectJudge);
+
     List<SubjectAnswerBO> covertEntityToBoList(List<SubjectJudge> subjectJudgeList);
 
 
