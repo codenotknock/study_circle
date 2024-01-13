@@ -121,12 +121,3 @@ create table study_circle.subject_radio
     is_deleted     int      default 0                 null
 )
     comment '单选题信息表_题目信息' charset = utf8;
-
-ALTER TABLE study_circle.subject_brief ALTER COLUMN is_deleted SET DEFAULT 0;
-ALTER TABLE study_circle.subject_category ALTER COLUMN is_deleted SET DEFAULT 0;
-ALTER TABLE study_circle.subject_info ALTER COLUMN is_deleted SET DEFAULT 0;
-ALTER TABLE study_circle.subject_judge ALTER COLUMN is_deleted SET DEFAULT 0;
-ALTER TABLE study_circle.subject_label ALTER COLUMN is_deleted SET DEFAULT 0;
-ALTER TABLE study_circle.subject_radio ALTER COLUMN is_deleted SET DEFAULT 0;
-ALTER TABLE study_circle.subject_multiple ALTER COLUMN is_deleted SET DEFAULT 0;
-ALTER TABLE study_circle.subject_mapping ALTER COLUMN is_deleted SET DEFAULT 0;
