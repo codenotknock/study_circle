@@ -13,9 +13,9 @@ import java.util.List;
  */
 
 @Mapper
-public interface SubjectRadioBOConverter {
+public interface SubjectRadioConverter {
     // 使用MapStruct框架来进行对象转换
-    SubjectRadioBOConverter INSTANCE = Mappers.getMapper(SubjectRadioBOConverter.class);
+    SubjectRadioConverter INSTANCE = Mappers.getMapper(SubjectRadioConverter.class);
 
     SubjectRadio covertBoToEntity(SubjectAnswerBO subjectAnswerBO);
 

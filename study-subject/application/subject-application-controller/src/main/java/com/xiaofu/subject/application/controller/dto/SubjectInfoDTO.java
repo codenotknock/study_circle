@@ -64,9 +64,13 @@ public class SubjectInfoDTO implements Serializable {
     private List<Long> labelIds;
 
     /**
-     * 答案
+     * 答案选项内容
      */
     private List<SubjectAnswerDTO> optionList;
 
 
+    /**
+     * 题目答案
+     */
+    private String subjectAnswer;
 }

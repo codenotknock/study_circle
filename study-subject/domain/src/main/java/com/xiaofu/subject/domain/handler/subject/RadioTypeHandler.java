@@ -2,7 +2,7 @@ package com.xiaofu.subject.domain.handler.subject;
 
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.xiaofu.subject.common.enums.SubjectInfoTypeEnum;
-import com.xiaofu.subject.domain.covert.SubjectRadioBOConverter;
+import com.xiaofu.subject.domain.covert.SubjectRadioConverter;
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
 import com.xiaofu.subject.domain.handler.SubjectTypeHandler;
 import com.xiaofu.subject.infra.basic.entity.SubjectRadio;
@@ -37,7 +37,7 @@ public class RadioTypeHandler implements SubjectTypeHandler {
         }
         List<SubjectRadio> subjectRadioList = new LinkedList<>();
         subjectInfoBO.getOptionList().forEach(option -> {
-            SubjectRadio subjectRadio = SubjectRadioBOConverter.INSTANCE.covertBoToEntity(option);
+            SubjectRadio subjectRadio = SubjectRadioConverter.INSTANCE.covertBoToEntity(option);
             subjectRadio.setSubjectId(subjectInfoBO.getId());
             subjectRadioList.add(subjectRadio);
         });
