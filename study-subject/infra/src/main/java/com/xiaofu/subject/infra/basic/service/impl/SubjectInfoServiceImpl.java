@@ -1,6 +1,7 @@
 package com.xiaofu.subject.infra.basic.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaofu.subject.infra.basic.entity.SubjectInfo;
 import com.xiaofu.subject.infra.basic.mapper.SubjectInfoMapper;
@@ -23,6 +24,9 @@ public class SubjectInfoServiceImpl extends ServiceImpl<SubjectInfoMapper, Subje
 
     @Override
     public IPage<SubjectInfo> queryPageByIds(Page<SubjectInfo> page, List<Long> ids) {
+        if (null == page || CollectionUtils.isEmpty(ids)) {
+            return null;
+        }
         return this.lambdaQuery()
                 .in(SubjectInfo::getId, ids)
                 .page(page);

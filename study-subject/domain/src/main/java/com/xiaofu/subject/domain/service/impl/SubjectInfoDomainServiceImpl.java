@@ -11,8 +11,10 @@ import com.xiaofu.subject.domain.handler.SubjectTypeHandler;
 import com.xiaofu.subject.domain.handler.subject.SubjectTypeHandlerFactory;
 import com.xiaofu.subject.domain.service.SubjectInfoDomainService;
 import com.xiaofu.subject.infra.basic.entity.SubjectInfo;
+import com.xiaofu.subject.infra.basic.entity.SubjectLabel;
 import com.xiaofu.subject.infra.basic.entity.SubjectMapping;
 import com.xiaofu.subject.infra.basic.service.SubjectInfoService;
+import com.xiaofu.subject.infra.basic.service.SubjectLabelService;
 import com.xiaofu.subject.infra.basic.service.SubjectMappingService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -40,6 +43,9 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
 
     @Autowired
     private SubjectMappingService subjectMappingService;
+
+    @Autowired
+    private SubjectLabelService subjectLabelService;
 
     @Override
     public void add(SubjectInfoBO subjectInfoBO) {
@@ -69,9 +75,7 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
     @Override
     public PageResult<SubjectInfoBO> getSubjectPage(SubjectInfoBO subjectInfoBO) {
         // 根据分类id和标签id查询出对应的题目
-        Long categoryId = subjectInfoBO.getCategoryId();
-        Long labelId = subjectInfoBO.getLabelId();
-        List<SubjectMapping> subjectMappingList = subjectMappingService.queryByCategoryIdAndLabelId(categoryId, labelId);
+        List<SubjectMapping> subjectMappingList = subjectMappingService.queryByCategoryIdAndLabelId(subjectInfoBO.getCategoryId(), subjectInfoBO.getLabelId());
         List<Long> subjectIds = subjectMappingList.stream().map(SubjectMapping::getSubjectId).collect(Collectors.toList());
         if (CollectionUtils.isEmpty(subjectIds)) {
             return null;
@@ -81,8 +85,29 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
         List<SubjectInfo> records = subjectInfoIPage.getRecords();
         if (null != subjectInfoBO.getSubjectDifficult()) {
             records = records.stream().filter(item -> Objects.equals(item.getSubjectDifficult(), subjectInfoBO.getSubjectDifficult())).collect(Collectors.toList());
+            if(CollectionUtils.isEmpty(records)) {
+                return  null;
+            }
         }
+        // 获取每个题目的多个标签名字
+        subjectIds = records.stream().map(SubjectInfo::getId).collect(Collectors.toList());
+        subjectMappingList = subjectMappingService.queryBySubjectIds(subjectIds);
+        List<Long> labelIds = subjectMappingList.stream().map(SubjectMapping::getLabelId).distinct().collect(Collectors.toList());
+        Map<Long, List<Long>> subjectIdToLabelIds = subjectMappingList.stream()
+                .collect(Collectors.groupingBy(SubjectMapping::getSubjectId,  Collectors.mapping(SubjectMapping::getLabelId, Collectors.toList())));
+        Map<Long, String> labelIdToName = subjectLabelService.listByIds(labelIds).stream().collect(Collectors.toMap(SubjectLabel::getId, SubjectLabel::getLabelName));
+
         List<SubjectInfoBO> subjectInfoBOList = SubjectInfoBOConverter.INSTANCE.covertEntityToBoList(records);
+        subjectInfoBOList.forEach(item -> {
+            List<Long> ids = subjectIdToLabelIds.get(subjectInfoBO.getId());
+            List<String> labelNames = new LinkedList<>();
+            for (Long labelId : ids) {
+                labelNames.add(labelIdToName.get(labelId));
+            }
+            item.setLabelNames(labelNames);
+        });
+
+
         return new PageResult<>(subjectInfoBOList);
     }
 }
