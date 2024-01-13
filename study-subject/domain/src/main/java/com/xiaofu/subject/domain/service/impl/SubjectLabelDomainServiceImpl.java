@@ -1,6 +1,5 @@
 package com.xiaofu.subject.domain.service.impl;
 
-import com.xiaofu.subject.domain.covert.SubjectCategoryBOConverter;
 import com.xiaofu.subject.domain.covert.SubjectLabelBOConverter;
 import com.xiaofu.subject.domain.entity.SubjectLabelBO;
 import com.xiaofu.subject.domain.service.SubjectLabelDomainService;
@@ -8,7 +7,6 @@ import com.xiaofu.subject.infra.basic.entity.SubjectLabel;
 import com.xiaofu.subject.infra.basic.entity.SubjectMapping;
 import com.xiaofu.subject.infra.basic.service.SubjectLabelService;
 import com.xiaofu.subject.infra.basic.service.SubjectMappingService;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +29,7 @@ public class SubjectLabelDomainServiceImpl implements SubjectLabelDomainService 
 
     @Override
     public boolean saveOrUpdate(SubjectLabelBO subjectLabelBO) {
-        SubjectLabel subjectLabel = SubjectLabelBOConverter.INSTANCE.covertBoToLabel(subjectLabelBO);
+        SubjectLabel subjectLabel = SubjectLabelBOConverter.INSTANCE.covertBoToEntity(subjectLabelBO);
         return subjectLabelService.saveOrUpdate(subjectLabel);
     }
 
@@ -46,7 +44,7 @@ public class SubjectLabelDomainServiceImpl implements SubjectLabelDomainService 
         List<SubjectMapping> subjectMappingList = subjectMappingService.queryLabelIdsByCategoryId(categoryId);
         List<Long> labelIds = subjectMappingList.stream().map(SubjectMapping::getLabelId).distinct().collect(Collectors.toList());
         List<SubjectLabel> subjectLabelList = subjectLabelService.listByIds(labelIds);
-        List<SubjectLabelBO> subjectLabelBOList = SubjectLabelBOConverter.INSTANCE.covertLabelToBoList(subjectLabelList);
+        List<SubjectLabelBO> subjectLabelBOList = SubjectLabelBOConverter.INSTANCE.covertEntityToBoList(subjectLabelList);
 
         return subjectLabelBOList;
     }

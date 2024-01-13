@@ -17,7 +17,7 @@ public interface SubjectCategoryBOConverter {
     // 使用MapStruct框架来进行对象转换
     SubjectCategoryBOConverter INSTANCE = Mappers.getMapper(SubjectCategoryBOConverter.class);
 
-    SubjectCategory covertBoToCategory(SubjectCategoryBO subjectCategoryBO);
+    SubjectCategory covertBoToEntity(SubjectCategoryBO subjectCategoryBO);
 
-    List<SubjectCategoryBO> covertCategoryToBoList( List<SubjectCategory> subjectCategoryList);
+    List<SubjectCategoryBO> covertEntityToBoList(List<SubjectCategory> subjectCategoryList);
 }

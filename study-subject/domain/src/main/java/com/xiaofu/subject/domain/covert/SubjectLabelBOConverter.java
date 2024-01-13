@@ -17,8 +17,8 @@ public interface SubjectLabelBOConverter {
 
     SubjectLabelBOConverter INSTANCE = Mappers.getMapper(SubjectLabelBOConverter.class);
 
-    SubjectLabel covertBoToLabel(SubjectLabelBO subjectLabelBO);
+    SubjectLabel covertBoToEntity(SubjectLabelBO subjectLabelBO);
 
-    List<SubjectLabelBO> covertLabelToBoList(List<SubjectLabel> subjectLabelList);
+    List<SubjectLabelBO> covertEntityToBoList(List<SubjectLabel> subjectLabelList);
 
 }

@@ -17,8 +17,8 @@ public interface SubjectInfoBOConverter {
     // 使用MapStruct框架来进行对象转换
     SubjectInfoBOConverter  INSTANCE = Mappers.getMapper(SubjectInfoBOConverter.class);
 
-    SubjectInfo covertBoToInfo(SubjectInfoBO subjectInfoBO);
+    SubjectInfo covertBoToEntity(SubjectInfoBO subjectInfoBO);
 
-    List<SubjectInfoBO> covertInfoToBoList (List<SubjectInfo> subjectInfoList);
+    List<SubjectInfoBO> covertEntityToBoList(List<SubjectInfo> subjectInfoList);
 
 }

@@ -17,6 +17,10 @@ public class SubjectInfoBO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 题目id
+     */
+    private Long id;
 
     /**
      * 题目名称

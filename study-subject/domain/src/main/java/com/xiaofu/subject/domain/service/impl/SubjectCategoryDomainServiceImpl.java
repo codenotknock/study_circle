@@ -23,16 +23,16 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
 
     @Override
     public List<SubjectCategoryBO> queryCategory(SubjectCategoryBO subjectCategoryBO) {
-        SubjectCategory subjectCategory = SubjectCategoryBOConverter.INSTANCE.covertBoToCategory(subjectCategoryBO);
+        SubjectCategory subjectCategory = SubjectCategoryBOConverter.INSTANCE.covertBoToEntity(subjectCategoryBO);
         List<SubjectCategory> subjectCategoryList = subjectCategoryService.queryCategory(subjectCategory);
-        List<SubjectCategoryBO> subjectCategoryBOList = SubjectCategoryBOConverter.INSTANCE.covertCategoryToBoList(subjectCategoryList);
+        List<SubjectCategoryBO> subjectCategoryBOList = SubjectCategoryBOConverter.INSTANCE.covertEntityToBoList(subjectCategoryList);
 
         return subjectCategoryBOList;
     }
 
     @Override
     public boolean saveOrUpdate(SubjectCategoryBO subjectCategoryBO) {
-        SubjectCategory subjectCategory = SubjectCategoryBOConverter.INSTANCE.covertBoToCategory(subjectCategoryBO);
+        SubjectCategory subjectCategory = SubjectCategoryBOConverter.INSTANCE.covertBoToEntity(subjectCategoryBO);
         return subjectCategoryService.saveOrUpdate(subjectCategory);
     }
 
