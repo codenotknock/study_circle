@@ -36,6 +36,8 @@
     <mapstruct>1.4.2.Final</mapstruct>
     <fastjson>1.2.24</fastjson>
     <guava>29.0-jre</guava>
+    <hutool.version>5.7.15</hutool.version>
+
   </properties>
 
 
@@ -84,7 +86,11 @@
         <artifactId>guava</artifactId>
         <version>${guava}</version>
       </dependency>
-
+      <dependency>
+        <groupId>cn.hutool</groupId>
+        <artifactId>hutool-all</artifactId>
+        <version>${hutool.version}</version>
+      </dependency>
       <!--swagger ui-->
       <dependency>
         <groupId>com.github.xiaoymin</groupId>

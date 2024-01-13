@@ -37,5 +37,11 @@
             <artifactId>guava</artifactId>
         </dependency>
 
+<!--        hutool-all工具库-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+
     </dependencies>
 </project>
