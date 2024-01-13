@@ -1,4 +1,4 @@
-package com.xiaofu.subject.infra.basic.utils;
+package com.xiaofu.subject.common.entity.page;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;

@@ -1,5 +1,6 @@
 package com.xiaofu.subject.domain.service;
 
+import com.xiaofu.subject.common.entity.page.PageResult;
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
 
 /**
@@ -15,4 +16,5 @@ public interface SubjectInfoDomainService {
     void add(SubjectInfoBO subjectInfoBO);
 
 
+    PageResult<SubjectInfoBO> getSubjectPage(SubjectInfoBO subjectInfoBO);
 }

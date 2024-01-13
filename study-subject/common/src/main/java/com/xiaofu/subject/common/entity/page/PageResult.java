@@ -1,6 +1,7 @@
 package com.xiaofu.subject.common.entity.page;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Collections;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * @des  分页返回实体
  */
 @Data
+@NoArgsConstructor
 public class PageResult<T> {
 
     private Integer pageNo = 1;
@@ -26,6 +28,10 @@ public class PageResult<T> {
     private Integer start = 1;
 
     private Integer end = 0;
+
+    public PageResult (List<T> result) {
+        setRecords(result);
+    }
 
     public void setRecords(List<T> result) {
         this.result = result;

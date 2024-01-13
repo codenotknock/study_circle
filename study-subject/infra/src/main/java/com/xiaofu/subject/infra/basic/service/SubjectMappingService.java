@@ -16,4 +16,6 @@ import java.util.List;
 public interface SubjectMappingService extends IService<SubjectMapping> {
 
     List<SubjectMapping> queryLabelIdsByCategoryId(Long categoryId);
+
+    List<SubjectMapping> queryByCategoryIdAndLabelId(Long categoryId, Long labelId);
 }

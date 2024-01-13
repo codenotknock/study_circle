@@ -25,4 +25,12 @@ public class SubjectMappingServiceImpl extends ServiceImpl<SubjectMappingMapper,
                 .eq(SubjectMapping::getCategoryId, categoryId)
                 .list();
     }
+
+    @Override
+    public List<SubjectMapping> queryByCategoryIdAndLabelId(Long categoryId, Long labelId) {
+        return this.lambdaQuery()
+                .eq(SubjectMapping::getCategoryId, categoryId)
+                .eq(SubjectMapping::getLabelId, labelId)
+                .list();
+    }
 }

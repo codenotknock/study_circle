@@ -1,11 +1,13 @@
 package com.xiaofu.subject.application.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.google.common.base.Preconditions;
 import com.xiaofu.subject.application.controller.covert.SubjectAnswerDTOConverter;
 import com.xiaofu.subject.application.controller.covert.SubjectInfoDTOConverter;
 import com.xiaofu.subject.application.controller.dto.SubjectInfoDTO;
 import com.xiaofu.subject.common.entity.Result;
+import com.xiaofu.subject.common.entity.page.PageResult;
 import com.xiaofu.subject.domain.entity.SubjectAnswerBO;
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
 import com.xiaofu.subject.domain.service.SubjectInfoDomainService;
@@ -60,5 +62,33 @@ public class SubjectController {
             return Result.fail("执行失败");
         }
     }
+
+    @ApiOperation(value = "查询题目列表")
+    @PostMapping(value = {"/getSubjectPage"})
+    public Result<PageResult<SubjectInfoDTO>> getSubjectPage(@RequestBody SubjectInfoDTO subjectInfoDTO) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("SubjectController.getSubjectPage.dto:{}", JSON.toJSONString(subjectInfoDTO));
+            }
+            Preconditions.checkNotNull(subjectInfoDTO.getCategoryId(), "分类id不能为空");
+            Preconditions.checkNotNull(subjectInfoDTO.getLabelId(), "标签id不能为空");
+
+
+            SubjectInfoBO subjectInfoBO = SubjectInfoDTOConverter.INSTANCE.convertDtoToBo(subjectInfoDTO);
+            subjectInfoBO.setPageNo(subjectInfoDTO.getPageNo());
+            subjectInfoBO.setPageSize(subjectInfoDTO.getPageSize());
+            PageResult<SubjectInfoBO> infoBOPageResult = subjectInfoDomainService.getSubjectPage(subjectInfoBO);
+            if (null == infoBOPageResult) {
+                return Result.ok(new PageResult<>());
+            }
+
+            List<SubjectInfoDTO> records = SubjectInfoDTOConverter.INSTANCE.convertBoToDtoList(infoBOPageResult.getResult());
+            return Result.ok(new PageResult<>(records));
+        } catch (Exception e) {
+            log.error("SubjectCategoryController.add.error:{}", e.getMessage(), e);
+            return Result.fail("分页查询题目失败");
+        }
+    }
+
 
 }

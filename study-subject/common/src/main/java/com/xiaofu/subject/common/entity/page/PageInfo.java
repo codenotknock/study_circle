@@ -1,14 +1,20 @@
 package com.xiaofu.subject.common.entity.page;
 
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.Data;
+
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author xiaofu
  * @date 2024/1/13 21:55
  * @des 分页请求实体
  */
-public class PageParam {
+@Data
+public class PageInfo {
     private String search;
 
     /**
@@ -40,6 +46,17 @@ public class PageParam {
         return pageSize;
     }
 
-
+    public <T> Page<T> toMpPage(OrderItem ... items) {
+        Page<T> page = Page.of(pageNo, pageSize);
+        if (!orders.isEmpty()) {
+            List<OrderItem> orderItemList = orders.stream()
+                    .map(orderParam -> new OrderItem(orderParam.getField(), orderParam.isAsc()))
+                    .collect(Collectors.toList());
+            page.addOrder(orderItemList.toArray(new OrderItem[0]));
+        } else if (null != items) {
+            page.addOrder(items);
+        }
+        return page;
+    }
 
 }

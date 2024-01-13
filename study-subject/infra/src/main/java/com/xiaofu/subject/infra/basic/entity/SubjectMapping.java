@@ -15,7 +15,6 @@ import lombok.experimental.Accessors;
  * @since 2024-01-13
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("subject_mapping")
 public class SubjectMapping extends BaseEntity {

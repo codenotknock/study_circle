@@ -1,5 +1,6 @@
 package com.xiaofu.subject.domain.entity;
 
+import com.xiaofu.subject.common.entity.page.PageInfo;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -13,7 +14,7 @@ import java.util.List;
  */
 @Data
 @Accessors(chain = true)
-public class SubjectInfoBO implements Serializable {
+public class SubjectInfoBO extends PageInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -72,4 +73,11 @@ public class SubjectInfoBO implements Serializable {
      * 题目答案
      */
     private String subjectAnswer;
+
+
+    /**
+     * 查询题目列表
+     */
+    private Long categoryId;
+    private Long labelId;
 }
