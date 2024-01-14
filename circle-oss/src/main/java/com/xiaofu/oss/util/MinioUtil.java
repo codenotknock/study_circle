@@ -99,9 +99,9 @@ public class MinioUtil {
     }
 
     /**
-     * 当前桶和文件
+     * 当前桶的所有文件
      */
-    public List<FileInfo> getFile(String bucket) throws Exception {
+    public List<FileInfo> getAllFile(String bucket) throws Exception {
         Iterable<Result<Item>> results = minioClient.listObjects(ListObjectsArgs.builder().bucket(bucket).build());
         List<FileInfo> fileInfoList = new LinkedList<>();
         for (Result<Item> result : results) {
