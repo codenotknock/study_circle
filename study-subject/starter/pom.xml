@@ -12,12 +12,7 @@
     <dependencies>
         <dependency>
             <groupId>com.xiaofu</groupId>
-            <artifactId>infra</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.xiaofu</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>subject-application-controller</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
@@ -41,16 +36,28 @@
 
         <dependency>
             <groupId>com.xiaofu</groupId>
-            <artifactId>application</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.xiaofu</groupId>
             <artifactId>subject-application-controller</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
-
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <!--打包成jar包时的名字-->
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.4.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
