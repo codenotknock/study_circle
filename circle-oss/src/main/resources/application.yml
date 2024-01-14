@@ -1,0 +1,6 @@
+server:
+  port: 32381
+minio:
+  url: http://http://47.113.198.8:9000
+  accessKey: minio
+  secretKey: minio
