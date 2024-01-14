@@ -14,12 +14,6 @@
             <groupId>com.xiaofu</groupId>
             <artifactId>infra</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.alibaba</groupId>
-                    <artifactId>druid-spring-boot-starter</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
 
