@@ -58,4 +58,4 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: true
     auto-mapping-unknown-column-behavior: warning
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志   使用自定义日志输出 已实现

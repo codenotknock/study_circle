@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.xiaofu.subject.infra.basic.config.interceptor.MybatisPlusSqlLogInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.context.annotation.Bean;
@@ -14,13 +15,29 @@ import java.sql.Timestamp;
 /**
  * @author xiaofu
  * @date 2024/1/13 0:31
- * @des 属性填充
+ * @des mp 配置
  */
 
 @Slf4j
-
 @Configuration
 public class MyBatisPlusConf {
+
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        // 分页插件
+        // 初始化核心插件
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        // 添加分页插件
+        PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor(DbType.MYSQL);
+        // 设置分页上限为999
+        paginationInnerInterceptor.setMaxLimit(999L);
+        interceptor.addInnerInterceptor(paginationInnerInterceptor);
+
+        // sql日志信息
+        interceptor.addInnerInterceptor(new MybatisPlusSqlLogInterceptor());
+
+        return interceptor;
+    }
 
     @Bean
     public MetaObjectHandler metaObjectHandler() {
@@ -41,16 +58,5 @@ public class MyBatisPlusConf {
         };
     }
 
-    @Bean
-    public MybatisPlusInterceptor mybatisPlusInterceptor() {
-        // 初始化核心插件
-        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        // 添加分页插件
-        PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor(DbType.MYSQL);
-        // 设置分页上限为999
-        paginationInnerInterceptor.setMaxLimit(999L);
-        interceptor.addInnerInterceptor(paginationInnerInterceptor);
-        return interceptor;
-    }
 
 }
