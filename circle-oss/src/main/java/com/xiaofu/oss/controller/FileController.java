@@ -1,5 +1,6 @@
 package com.xiaofu.oss.controller;
 
+import cn.hutool.core.collection.CollUtil;
 import com.xiaofu.oss.entity.Result;
 import com.xiaofu.oss.service.impl.FileService;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,11 @@ public class FileController {
     @Resource
     private FileService fileService;
 
-
+    @RequestMapping("/testGetAllBuckets")
+    public String testGetAllBuckets() throws Exception {
+        List<String> allBucket = fileService.getAllBucket();
+        return CollUtil.isEmpty(allBucket) ? null : allBucket.get(0);
+    }
 
     @RequestMapping("/getUrl")
     public String getUrl(String bucketName, String objectName) throws Exception {

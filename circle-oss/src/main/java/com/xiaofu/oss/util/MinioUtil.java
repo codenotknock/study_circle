@@ -16,6 +16,7 @@ import io.minio.http.Method;
 import io.minio.messages.Bucket;
 import io.minio.messages.Item;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
  * @des minio 文件操作工具类
  */
 
+@Component
 public class MinioUtil {
 
     @Autowired
