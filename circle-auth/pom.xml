@@ -36,11 +36,19 @@
     <guava>29.0-jre</guava>
     <hutool.version>5.7.15</hutool.version>
 
+    <satoken.veriosn>1.37.0</satoken.veriosn>
   </properties>
 
 
   <dependencyManagement>
     <dependencies>
+      <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
+      <dependency>
+        <groupId>cn.dev33</groupId>
+        <artifactId>sa-token-spring-boot-starter</artifactId>
+        <version>${satoken.veriosn}</version>
+      </dependency>
+
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>

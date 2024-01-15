@@ -2,10 +2,13 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.xiaofu</groupId>
-  <artifactId>auth-application</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <parent>
+    <groupId>com.xiaofu</groupId>
+    <artifactId>circle-auth</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
   <packaging>pom</packaging>
+  <artifactId>auth-application</artifactId>
   <name>auth-application</name>
 
   <modules>
@@ -24,7 +27,20 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+      <exclusions>
+        <exclusion>
+          <!--排除原因:会和log4j2冲突-->
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
 </project>
