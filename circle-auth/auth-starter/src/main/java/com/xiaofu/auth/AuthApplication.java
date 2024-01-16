@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @date 2024/1/15 22:16
  * @des
  */
-@ComponentScan("com.xiaofu.auth")
+@ComponentScan("com.xiaofu")
 @SpringBootApplication
 public class AuthApplication {
     public static void main(String[] args) {

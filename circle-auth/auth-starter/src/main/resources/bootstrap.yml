@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: circle-auth
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 47.113.198.8:8848
+        #        prefix: ${spring.application.name}
+        namespace:
+        file-extension: yaml
+      discovery:
+        enabled: true
+        server-addr: 47.113.198.8:8848
