@@ -81,6 +81,10 @@
       <artifactId>gson</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+    </dependency>
   </dependencies>
 
 

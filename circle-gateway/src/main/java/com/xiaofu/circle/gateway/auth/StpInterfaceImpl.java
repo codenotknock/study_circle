@@ -1,8 +1,13 @@
 package com.xiaofu.circle.gateway.auth;
 
 import cn.dev33.satoken.stp.StpInterface;
+import com.google.gson.Gson;
+import com.xiaofu.circle.gateway.redis.RedisUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,6 +18,13 @@ import java.util.List;
 @Component
 public class StpInterfaceImpl implements StpInterface {
 
+    @Autowired
+    private RedisUtil redisUtil;
+
+    private String authPermissionPrefix = "auth.premission";
+
+    private String authRolePrefix = "auth.role";
+
     /**
      * 返回一个账号所拥有的权限码集合
      */
@@ -22,7 +34,9 @@ public class StpInterfaceImpl implements StpInterface {
         // 和数据库交互
         // 存入redis
         // reids 缓存中没有 去auth模块获取
-        return null;
+
+
+        return getAuth(loginId.toString(), authPermissionPrefix);
     }
 
     /**
@@ -31,7 +45,18 @@ public class StpInterfaceImpl implements StpInterface {
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
         // 返回此 loginId 拥有的角色列表
-        return null;
+
+        return getAuth(loginId.toString(), authRolePrefix);
+    }
+
+    private List<String> getAuth(String loginId, String prefix) {
+        String authKey = redisUtil.buildKey(prefix, loginId.toString());
+        String authValue = redisUtil.get(authKey);
+        if (StringUtils.isEmpty(authValue)) {
+            return Collections.emptyList();
+        }
+        List authList = new Gson().fromJson(authValue, List.class);
+        return authList;
     }
 
 }
