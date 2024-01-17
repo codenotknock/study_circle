@@ -40,7 +40,7 @@ public class UserController {
                 log.info("UserController.register.dto:{}", JSON.toJSONString(authUserDTO));
             }
             checkUserInfo(authUserDTO);
-            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
+            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDtoToBo(authUserDTO);
             return Result.ok(authUserDomainService.register(authUserBO));
         } catch (Exception e) {
             log.error("UserController.register.error:{}", e.getMessage(), e);
@@ -58,7 +58,7 @@ public class UserController {
                 log.info("UserController.update.dto:{}", JSON.toJSONString(authUserDTO));
             }
             checkUserInfo(authUserDTO);
-            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
+            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDtoToBo(authUserDTO);
             return Result.ok(authUserDomainService.update(authUserBO));
         } catch (Exception e) {
             log.error("UserController.update.error:{}", e.getMessage(), e);
@@ -110,7 +110,7 @@ public class UserController {
             if (log.isInfoEnabled()) {
                 log.info("UserController.delete.dto:{}", JSON.toJSONString(authUserDTO));
             }
-            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
+            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDtoToBo(authUserDTO);
             return Result.ok(authUserDomainService.delete(authUserBO));
         } catch (Exception e) {
             log.error("UserController.update.error:{}", e.getMessage(), e);
@@ -132,7 +132,7 @@ public class UserController {
                 log.info("UserController.changeStatus.dto:{}", JSON.toJSONString(authUserDTO));
             }
             Preconditions.checkNotNull(authUserDTO.getStatus(), "用户状态不能为空");
-            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
+            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDtoToBo(authUserDTO);
             return Result.ok(authUserDomainService.update(authUserBO));
         } catch (Exception e) {
             log.error("UserController.changeStatus.error:{}", e.getMessage(), e);

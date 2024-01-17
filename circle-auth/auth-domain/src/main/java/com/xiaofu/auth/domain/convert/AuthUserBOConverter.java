@@ -17,4 +17,6 @@ public interface AuthUserBOConverter {
 
 
     AuthUser convertBoToEntity(AuthUserBO authUserDTO);
+
+    AuthUserBO convertEntityToBo(AuthUser user);
 }

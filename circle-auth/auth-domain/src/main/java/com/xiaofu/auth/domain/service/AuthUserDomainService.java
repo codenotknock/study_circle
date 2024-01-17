@@ -1,5 +1,6 @@
 package com.xiaofu.auth.domain.service;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import com.xiaofu.auth.domain.entity.AuthUserBO;
 
 /**
@@ -9,9 +10,13 @@ import com.xiaofu.auth.domain.entity.AuthUserBO;
  */
 
 public interface AuthUserDomainService {
-    boolean register(AuthUserBO authUserBO);
+    Boolean register(AuthUserBO authUserBO);
 
-    boolean update(AuthUserBO authUserBO);
+    Boolean update(AuthUserBO authUserBO);
 
-    boolean delete(AuthUserBO authUserBO);
+    Boolean delete(AuthUserBO authUserBO);
+
+    SaTokenInfo doLogin(String validCode);
+
+    AuthUserBO getUserInfo(AuthUserBO authUserBO);
 }

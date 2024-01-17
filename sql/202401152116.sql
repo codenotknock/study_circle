@@ -32,7 +32,7 @@ create table study_circle.auth_role
 )
     charset = utf8;
 
-create table study_circle.auth_role_premission
+create table study_circle.auth_role_Permission
 (
     id            bigint                             not null
         primary key,

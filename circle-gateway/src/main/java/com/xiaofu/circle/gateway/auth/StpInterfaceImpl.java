@@ -21,7 +21,7 @@ public class StpInterfaceImpl implements StpInterface {
     @Autowired
     private RedisUtil redisUtil;
 
-    private String authPermissionPrefix = "auth.premission";
+    private String authPermissionPrefix = "auth.Permission";
 
     private String authRolePrefix = "auth.role";
 
