@@ -1,4 +1,4 @@
-package com.xiaofu.subject.common.entity.page;
+package com.xiaofu.common.entitiy.page;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

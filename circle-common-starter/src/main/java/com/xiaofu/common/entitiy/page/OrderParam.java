@@ -1,4 +1,4 @@
-package com.xiaofu.auth.common.entity.page;
+package com.xiaofu.common.entitiy.page;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.xiaofu.subject.domain.service;
 
-import com.xiaofu.subject.common.entity.page.PageResult;
+import com.xiaofu.common.entitiy.page.PageResult;
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
 
 /**

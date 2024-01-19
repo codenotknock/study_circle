@@ -2,6 +2,7 @@ package com.xiaofu.circle.gateway.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +14,7 @@ import java.util.stream.Stream;
  * @date 2024/1/16 23:10
  * @des  redis 工具类
  */
+@Component
 public class RedisUtil {
     @Autowired
     private RedisTemplate redisTemplate;

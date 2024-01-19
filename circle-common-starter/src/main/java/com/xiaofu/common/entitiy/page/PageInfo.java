@@ -1,4 +1,4 @@
-package com.xiaofu.subject.common.entity.page;
+package com.xiaofu.common.entitiy.page;
 
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

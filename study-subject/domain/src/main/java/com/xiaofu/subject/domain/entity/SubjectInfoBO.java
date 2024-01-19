@@ -1,6 +1,6 @@
 package com.xiaofu.subject.domain.entity;
 
-import com.xiaofu.subject.common.entity.page.PageInfo;
+import com.xiaofu.common.entitiy.page.PageInfo;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.xiaofu.subject.common.entity.page.PageResult;
+import com.xiaofu.common.entitiy.page.PageResult;
 import com.xiaofu.subject.domain.covert.SubjectInfoBOConverter;
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
 import com.xiaofu.subject.domain.entity.SubjectOptionBO;

@@ -17,36 +17,65 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <spring-boot.version>2.4.2</spring-boot.version>
+    <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+
     <!--    工具相关-->
     <lombok>1.18.18</lombok>
+    <mapstruct>1.4.2.Final</mapstruct>
+    <fastjson>1.2.24</fastjson>
+    <guava>29.0-jre</guava>
     <hutool.version>5.7.15</hutool.version>
 
   </properties>
 
   <dependencies>
+    <!--        日志log4j2 slf4j-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>spring-boot-starter-logging</artifactId>
-          <groupId>org.springframework.boot</groupId>
-        </exclusion>
-      </exclusions>
+      <artifactId>spring-boot-starter-log4j2</artifactId>
+      <version>${spring-boot.version}</version>
+    </dependency>
+    <!--        fastjson-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>${fastjson}</version>
     </dependency>
 
+    <!--        lombok   必须在mapstruct的上面-->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>${lombok}</version>
+    </dependency>
+    <!--        注解相关-->
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
     </dependency>
 
+    <!--        验证相关    -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava}</version>
+    </dependency>
 
     <!--        hutool-all工具库-->
     <dependency>
       <groupId>cn.hutool</groupId>
       <artifactId>hutool-all</artifactId>
-      <version>${hutool.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-core</artifactId>
+      <version>${mybatis-plus.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-extension</artifactId>
+      <version>${mybatis-plus.version}</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 
@@ -56,11 +85,32 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
         <version>${spring-boot.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok}</version>
       </dependency>
 
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>${mapstruct}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava}</version>
+      </dependency>
+      <dependency>
+        <groupId>cn.hutool</groupId>
+        <artifactId>hutool-all</artifactId>
+        <version>${hutool.version}</version>
+      </dependency>
     </dependencies>
+
+
   </dependencyManagement>
 
   <repositories>

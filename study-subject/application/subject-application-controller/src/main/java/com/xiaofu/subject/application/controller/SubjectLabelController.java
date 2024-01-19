@@ -1,9 +1,9 @@
 package com.xiaofu.subject.application.controller;
 
 import com.google.common.base.Preconditions;
+import com.xiaofu.common.entitiy.Result;
 import com.xiaofu.subject.application.controller.covert.SubjectLabelDTOConverter;
 import com.xiaofu.subject.application.controller.dto.SubjectLabelDTO;
-import com.xiaofu.subject.common.entity.Result;
 import com.xiaofu.subject.domain.entity.SubjectLabelBO;
 import com.xiaofu.subject.domain.service.SubjectLabelDomainService;
 import io.swagger.annotations.Api;

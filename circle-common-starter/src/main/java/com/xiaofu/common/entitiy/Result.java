@@ -1,11 +1,11 @@
-package com.xiaofu.circle.gateway.entity;
+package com.xiaofu.common.entitiy;
 
-import com.xiaofu.circle.gateway.enums.ResultCodeEnum;
+import com.xiaofu.common.enums.ResultCodeEnum;
 import lombok.Data;
 
 /**
  * @author xiaofu
- * @date 2024/1/11 22:52
+ * @date 2024/1/19 21:43
  * @des
  */
 @Data
