@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author xiaofu
@@ -25,5 +26,15 @@ public class SubjectCategoryDTO  implements Serializable {
     private String imageUrl;
 
     private Long parentId;
+
+    /**
+     * 数量
+     */
+    private Integer count;
+
+    /**
+     * 标签信息
+     */
+    private List<SubjectLabelDTO> labelDTOList;
 
 }

@@ -112,7 +112,16 @@
 
 
   </dependencyManagement>
-
+  <distributionManagement>
+    <repository>
+      <id>rdc-releases</id>
+      <url>https://packages.aliyun.com/maven/repository/2451562-release-Tw5IDD/</url>
+    </repository>
+    <snapshotRepository>
+      <id>rdc-snapshots</id>
+      <url>https://packages.aliyun.com/maven/repository/2451562-snapshot-I2lASa/</url>
+    </snapshotRepository>
+  </distributionManagement>
   <repositories>
     <repository>
       <id>central</id>

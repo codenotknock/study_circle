@@ -1,5 +1,6 @@
 package com.xiaofu.auth.application.controller;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
@@ -143,13 +144,14 @@ public class UserController {
 
     // 测试登录，浏览器访问： http://localhost:8081/user/doLogin?username=zhang&password=123456
     @PostMapping("doLogin")
-    public String doLogin(String username, String password) {
-        // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
-        if("zhang".equals(username) && "123456".equals(password)) {
-            StpUtil.login(10001);
-            return "登录成功";
+    public Result<SaTokenInfo> doLogin(@RequestParam("validCode") String validCode) {
+        try {
+            Preconditions.checkArgument(!StringUtils.isBlank(validCode), "验证码不能为空!");
+            return Result.ok(authUserDomainService.doLogin(validCode));
+        } catch (Exception e) {
+            log.error("UserController.doLogin.error:{}", e.getMessage(), e);
+            return Result.fail("用户登录失败");
         }
-        return "登录失败";
     }
 
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin

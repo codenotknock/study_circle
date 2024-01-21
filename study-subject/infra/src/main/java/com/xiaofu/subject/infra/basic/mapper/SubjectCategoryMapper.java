@@ -12,5 +12,6 @@ import com.xiaofu.subject.infra.basic.entity.SubjectCategory;
 public interface SubjectCategoryMapper extends BaseMapper<SubjectCategory> {
 
 
+    Integer querySubjectCount(Long id);
 }
 

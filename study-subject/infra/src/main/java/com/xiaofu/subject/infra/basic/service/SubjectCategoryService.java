@@ -19,4 +19,6 @@ public interface SubjectCategoryService extends IService<SubjectCategory> {
      * @return
      */
     List<SubjectCategory> queryCategory(SubjectCategory subjectCategory);
+
+    Integer querySubjectCount(Long id);
 }

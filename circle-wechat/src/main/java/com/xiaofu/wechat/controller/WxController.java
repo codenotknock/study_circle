@@ -8,6 +8,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutTextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +29,12 @@ public class WxController {
     @Autowired
     private WxMpMessageRouter wxMpMessageRouter;
 
+    @RequestMapping("/test")
+    public String test() {
+        return "hello world";
+    }
+
+
     /**
      * 验证消息的确来自微信服务器
      * <p>
@@ -39,8 +46,28 @@ public class WxController {
      * @param echostr   随机字符串
      * @return
      */
+    @GetMapping("send")
+    public String configAccess(String signature, String timestamp, String nonce, String echostr) {
+        // 校验签名
+        if (!wxMpService.checkSignature(timestamp, nonce, signature)) {
+            log.error("签名校验 ===》 非法请求");
+            // 消息签名不正确，说明不是公众平台发过来的消息
+            return null;
+        }
+
+        log.error("签名校验 ===》 验证成功");
+        // 返回echostr
+        return echostr;
+    }
+
+
+
 //    @RequestMapping("send")
-    public String send(@RequestBody String requestBody, @RequestParam("signature") String signature, @RequestParam("timestamp") String timestamp, @RequestParam("nonce") String nonce) {
+    public String send(@RequestBody String requestBody,
+                       @RequestParam("signature") String signature,
+                       @RequestParam("timestamp") String timestamp,
+                       @RequestParam("nonce") String nonce,
+                       @RequestParam(value = "msg_signature", required = false) String msgSignature) {
         // 校验签名
         if (!wxMpService.checkSignature(timestamp, nonce, signature)) {
             log.error("签名校验 ===》 非法请求");
@@ -73,8 +100,12 @@ public class WxController {
         return outTextMessage.toXml();
     }
 
-    @RequestMapping("send")
-    public String configAccess(@RequestBody String requestBody, @RequestParam("signature") String signature, @RequestParam("timestamp") String timestamp, @RequestParam("nonce") String nonce) {
+    @RequestMapping(value = "send", produces = "application/xml;charset=UTF-8")
+    public String sendMsg(@RequestBody String requestBody,
+                          @RequestParam("signature") String signature,
+                          @RequestParam("timestamp") String timestamp,
+                          @RequestParam("nonce") String nonce,
+                          @RequestParam(value = "msg_signature", required = false) String msgSignature) {
         // 校验签名
         if (!wxMpService.checkSignature(timestamp, nonce, signature)) {
             log.error("签名校验 ===》 非法请求");

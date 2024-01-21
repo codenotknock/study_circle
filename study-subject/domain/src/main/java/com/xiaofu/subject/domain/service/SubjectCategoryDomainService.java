@@ -22,4 +22,6 @@ public interface SubjectCategoryDomainService {
     boolean saveOrUpdate(SubjectCategoryBO subjectCategoryBO);
 
     boolean delete(Long id);
+
+    List<SubjectCategoryBO> queryCategoryAndLabel(SubjectCategoryBO subjectCategoryBO);
 }

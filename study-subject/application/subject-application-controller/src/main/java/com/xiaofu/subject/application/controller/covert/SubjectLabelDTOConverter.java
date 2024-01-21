@@ -1,6 +1,8 @@
 package com.xiaofu.subject.application.controller.covert;
 
+import com.xiaofu.subject.application.controller.dto.SubjectCategoryDTO;
 import com.xiaofu.subject.application.controller.dto.SubjectLabelDTO;
+import com.xiaofu.subject.domain.entity.SubjectCategoryBO;
 import com.xiaofu.subject.domain.entity.SubjectLabelBO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -21,4 +23,5 @@ public interface SubjectLabelDTOConverter {
 
     List<SubjectLabelDTO> convertBoToDtoList(List<SubjectLabelBO> subjectLabelBOList);
 
+    SubjectCategoryDTO convertBoToDto(SubjectCategoryBO subjectCategoryBO);
 }

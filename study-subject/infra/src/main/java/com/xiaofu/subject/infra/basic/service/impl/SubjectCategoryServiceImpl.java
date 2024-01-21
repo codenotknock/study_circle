@@ -29,4 +29,11 @@ public class SubjectCategoryServiceImpl extends ServiceImpl<SubjectCategoryMappe
                 .eq(SubjectCategory::getCategoryType, subjectCategory.getCategoryType())
                 .list();
     }
+
+    @Override
+    public Integer querySubjectCount(Long id) {
+        return this.getBaseMapper().querySubjectCount(id);
+    }
+
+
 }

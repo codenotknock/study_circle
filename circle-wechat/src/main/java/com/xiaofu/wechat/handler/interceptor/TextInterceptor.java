@@ -1,7 +1,7 @@
 package com.xiaofu.wechat.handler.interceptor;
 
-import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
+import me.chanjar.weixin.mp.api.WxMpMessageInterceptor;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import org.springframework.stereotype.Component;
