@@ -1,30 +1,54 @@
+server:
+  port:  80
 
+
+spring:
+  # redis配置
+  redis:
+    # Redis数据库索引（默认为0）
+    database: 1
+    # Redis服务器地址
+    host: 47.113.198.8
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password: xiaofu123
+    # 连接超时时间
+    timeout: 2s
+    lettuce:
+      pool:
+        # 连接池最大连接数
+        max-active: 200
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1ms
+        # 连接池中的最大空闲连接
+        max-idle: 10
+        # 连接池中的最小空闲连接
+        min-idle: 0
 
 # 自定义微信相关配置信息
 wx:
   # 消息模板ID
-  templateId:
+  templateId: o9YG7vWS8It-mddU2Wnknf1jgzTqZtLeBQRLhF54SXQ
   mp:
     # 微信公众号的appid
-    appId:
+    appId: wxe545adcf84d94fcb
     # 信公众号的app secret
-    secret:
+    secret: 5cb34dc288518e651e9311428ac72912
     # 微信公众号的toke
-    token:
+    token: xiaofuasdasdasdsadsaasd
     # 微信公众号的EncodingAESKey
-    aesKey: wAO
-    config-storage:
-      redis:
-        host: 47.113.198.8
-        port: 6379
-        password:
-      type: jedis
-      http-client-type: httpclient
-      http-proxy-host:
-      http-proxy-password:
-      http-proxy-port:
-      http-proxy-username:
-      key-prefix:
+    aesKey: uIKqlr7e2RFRTLwCLVLNbL3jYJrkJuYhfMQXwMclwAO
+#    config-storage:
+#      redis:
+#        host: 47.113.198.8
+#        port: 6379
+#        password: xiaofu123
+#      type: jedis
+#      http-client-type: httpclient
+#      http-proxy-host:
+#      http-proxy-password:
+#      http-proxy-port:
+#      http-proxy-username:
+#      key-prefix:
 
-server:
-  port:  80

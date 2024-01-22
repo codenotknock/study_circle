@@ -51,13 +51,14 @@ public class TextHandler implements WxMpMessageHandler {
             redisUtil.setNx(numKey, wxMpProperties.getAppId(), 5L, TimeUnit.MINUTES);
 
         }
-        else if (inContent.contains("java")) {
-            outContent = "hello java";
-        } else if (inContent.contains("***")) {
-            outContent = "请文明用语";
-        } else
-        {
-            outContent = "服务繁忙,暂时不能回复";
+//        else if (inContent.contains("java")) {
+//            outContent = "hello java";
+//        }
+//        else if (inContent.contains("***")) {
+//            outContent = "请文明用语";
+//        } else
+        else {
+            outContent = "获取验证码请发送‘学习圈子’，其它功能还在开发中....";
         }
 
         // 构造响应消息对象
