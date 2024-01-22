@@ -10,8 +10,6 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.deploy.skip>true</maven.deploy.skip>
-    <maven.install.skip>true</maven.install.skip>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -26,6 +24,7 @@
     <lombok>1.18.18</lombok>
     <hutool.version>5.7.15</hutool.version>
     <gson.version>2.8.6</gson.version>
+    <commonspool.version></commonspool.version>
   </properties>
 
   <dependencies>
@@ -146,6 +145,17 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <distributionManagement>
+    <repository>
+      <id>rdc-releases</id>
+      <url>https://packages.aliyun.com/maven/repository/2451562-release-Tw5IDD/</url>
+    </repository>
+    <snapshotRepository>
+      <id>rdc-snapshots</id>
+      <url>https://packages.aliyun.com/maven/repository/2451562-snapshot-I2lASa/</url>
+    </snapshotRepository>
+  </distributionManagement>
 
   <repositories>
     <repository>
