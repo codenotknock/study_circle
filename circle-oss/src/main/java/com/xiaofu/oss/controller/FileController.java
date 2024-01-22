@@ -2,7 +2,7 @@ package com.xiaofu.oss.controller;
 
 import cn.hutool.core.collection.CollUtil;
 import com.xiaofu.oss.entity.Result;
-import com.xiaofu.oss.service.impl.FileService;
+import com.xiaofu.oss.service.FileService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;

@@ -1,4 +1,4 @@
-package com.xiaofu.oss.service.impl;
+package com.xiaofu.oss.service;
 
 import com.xiaofu.oss.adapter.StorageAdapter;
 import org.springframework.stereotype.Service;
