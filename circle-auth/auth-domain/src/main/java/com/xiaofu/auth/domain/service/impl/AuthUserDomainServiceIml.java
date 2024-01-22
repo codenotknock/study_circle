@@ -5,8 +5,8 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.gson.Gson;
+import com.xiaofu.auth.common.constants.AuthConstant;
 import com.xiaofu.auth.common.enums.AuthUserStatusEnum;
-import com.xiaofu.auth.domain.constants.AuthConstant;
 import com.xiaofu.auth.domain.convert.AuthUserBOConverter;
 import com.xiaofu.auth.domain.entity.AuthUserBO;
 import com.xiaofu.auth.domain.redis.RedisUtil;
@@ -55,16 +55,9 @@ public class AuthUserDomainServiceIml implements AuthUserDomainService {
     @Autowired
     private AuthRoleService authRoleService;
 
-    private String salt = "xiaofu";
-
     @Resource
     private RedisUtil redisUtil;
 
-    private String authPermissionPrefix = "auth.permission";
-
-    private String authRolePrefix = "auth.role";
-
-    private static final String LOGIN_PREFIX = "loginCode";
 
     @Override
     @SneakyThrows
@@ -72,42 +65,40 @@ public class AuthUserDomainServiceIml implements AuthUserDomainService {
     public Boolean register(AuthUserBO authUserBO) {
         //校验用户是否存在
         Long count = authUserService.lambdaQuery().eq(AuthUser::getUserName, authUserBO.getUserName()).count();
-        if (count> 0) {
+        if (count > 0) {
             return true;
         }
         AuthUser authUser = AuthUserBOConverter.INSTANCE.convertBoToEntity(authUserBO);
         if (StringUtils.isNotBlank(authUser.getPassword())) {
-            authUser.setPassword(SaSecureUtil.md5BySalt(authUser.getPassword(), salt));
+            authUser.setPassword(SaSecureUtil.md5BySalt(authUser.getPassword(), AuthConstant.MD5_SALT));
         }
         if (StringUtils.isBlank(authUser.getAvatar())) {
-            authUser.setAvatar("http://47.113.198.8:9090/browser/test/avt%20(10).png");
+            authUser.setAvatar(AuthConstant.USER_AVATAR);
         }
         authUser.setStatus(AuthUserStatusEnum.OPEN.getCode());
         boolean res = authUserService.save(authUser);
 
-
+        // TODO 数据库完善之后，待优化  下面的redis 存储角色也是
         AuthRole roleResult = authRoleService.lambdaQuery().eq(AuthRole::getRoleKey, AuthConstant.NORMAL_USER).one();
         //建立一个初步的角色的关联
-        AuthRole authRole = new AuthRole();
-        authRole.setRoleKey(AuthConstant.NORMAL_USER);
-        Long roleId = roleResult.getId();
-        Long userId = authUser.getId();
         AuthUserRole authUserRole = new AuthUserRole();
-        authUserRole.setUserId(userId);
-        authUserRole.setRoleId(roleId);
+        authUserRole.setUserId(authUser.getId());
+        authUserRole.setRoleId(roleResult.getId());
         authUserRoleService.save(authUserRole);
 
-        String roleKey = redisUtil.buildKey(authRolePrefix, authUser.getUserName());
         List<AuthRole> roleList = new LinkedList<>();
+        AuthRole authRole = new AuthRole();
+        authRole.setRoleKey(AuthConstant.NORMAL_USER);
         roleList.add(authRole);
+        String roleKey = redisUtil.buildKey(AuthConstant.authRolePrefix, authUser.getUserName());
         redisUtil.set(roleKey, new Gson().toJson(roleList));
         //根据roleId查权限
         List<AuthRolePermission> rolePermissionList = authRolePermissionService.lambdaQuery()
-                .eq(AuthRolePermission::getRoleId, roleId).list();
+                .eq(AuthRolePermission::getRoleId, roleResult.getId()).list();
         List<Long> permissionIdList = rolePermissionList.stream()
                 .map(AuthRolePermission::getPermissionId).collect(Collectors.toList());
         List<AuthPermission> permissionList = authPermissionService.listByIds(permissionIdList);
-        String permissionKey = redisUtil.buildKey(authPermissionPrefix, authUser.getUserName());
+        String permissionKey = redisUtil.buildKey(AuthConstant.authPermissionPrefix, authUser.getUserName());
         redisUtil.set(permissionKey, new Gson().toJson(permissionList));
 
         return res;
@@ -131,7 +122,7 @@ public class AuthUserDomainServiceIml implements AuthUserDomainService {
 
     @Override
     public SaTokenInfo doLogin(String validCode) {
-        String loginKey = redisUtil.buildKey(LOGIN_PREFIX, validCode);
+        String loginKey = redisUtil.buildKey(AuthConstant.LOGIN_PREFIX, validCode);
         String openId = redisUtil.get(loginKey);
         if (StringUtils.isBlank(openId)) {
             return null;
@@ -140,8 +131,7 @@ public class AuthUserDomainServiceIml implements AuthUserDomainService {
         authUserBO.setUserName(openId);
         this.register(authUserBO);
         StpUtil.login(openId);
-        SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
-        return tokenInfo;
+        return StpUtil.getTokenInfo();
     }
 
     @Override

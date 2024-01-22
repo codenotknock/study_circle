@@ -3,6 +3,7 @@ package com.xiaofu.auth.domain.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.xiaofu.auth.common.constants.AuthConstant;
 import com.xiaofu.auth.domain.convert.AuthPermissionBOConverter;
 import com.xiaofu.auth.domain.entity.AuthPermissionBO;
 import com.xiaofu.auth.domain.redis.RedisUtil;
@@ -29,7 +30,7 @@ public class AuthPermissionDomainServiceImpl implements AuthPermissionDomainServ
     @Autowired
     private RedisUtil redisUtil;
 
-    private String authPermissionPrefix = "auth.permission";
+
 
     @Override
     public Boolean add(AuthPermissionBO authPermissionBO) {
@@ -53,7 +54,7 @@ public class AuthPermissionDomainServiceImpl implements AuthPermissionDomainServ
 
     @Override
     public List<String> getPermission(String userName) {
-        String permissionKey = redisUtil.buildKey(authPermissionPrefix, userName);
+        String permissionKey = redisUtil.buildKey(AuthConstant.authPermissionPrefix, userName);
         String permissionValue = redisUtil.get(permissionKey);
         if (StringUtils.isBlank(permissionValue)) {
             return Collections.emptyList();

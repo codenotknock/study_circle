@@ -11,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan;
  * @des
  */
 @MapperScan("com.xiaofu.**.mapper")
-@ComponentScan("com.xiaofu")
 @SpringBootApplication
 public class AuthApplication {
     public static void main(String[] args) {

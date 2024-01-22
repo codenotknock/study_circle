@@ -1,6 +1,6 @@
 package com.xiaofu.auth.application.handler;
 
-import com.xiaofu.auth.application.context.LoginContextHolder;
+import com.xiaofu.auth.common.context.LoginContextHolder;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 

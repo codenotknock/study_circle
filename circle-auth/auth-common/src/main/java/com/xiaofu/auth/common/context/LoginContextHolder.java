@@ -1,4 +1,4 @@
-package com.xiaofu.auth.application.context;
+package com.xiaofu.auth.common.context;
 
 import java.util.Map;
 import java.util.Objects;
