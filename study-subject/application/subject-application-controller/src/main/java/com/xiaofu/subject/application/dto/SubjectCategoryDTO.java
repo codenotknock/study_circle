@@ -1,4 +1,4 @@
-package com.xiaofu.subject.application.controller.dto;
+package com.xiaofu.subject.application.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

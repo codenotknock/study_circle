@@ -1,6 +1,6 @@
-package com.xiaofu.subject.application.controller.covert;
+package com.xiaofu.subject.application.covert;
 
-import com.xiaofu.subject.application.controller.dto.SubjectInfoDTO;
+import com.xiaofu.subject.application.dto.SubjectInfoDTO;
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

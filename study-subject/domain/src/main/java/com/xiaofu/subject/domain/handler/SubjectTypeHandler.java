@@ -24,6 +24,8 @@ public interface SubjectTypeHandler {
 
     void add(SubjectInfoBO subjectInfoBO);
 
-
+    /**
+     * 题目查询
+     */
     SubjectOptionBO query(int subjectId);
 }

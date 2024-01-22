@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.stream.Collectors;
@@ -54,10 +55,19 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
         SubjectCategory subjectCategory = SubjectCategoryBOConverter.INSTANCE.covertBoToEntity(subjectCategoryBO);
         List<SubjectCategory> subjectCategoryList = subjectCategoryService.queryCategory(subjectCategory);
         List<SubjectCategoryBO> subjectCategoryBOList = SubjectCategoryBOConverter.INSTANCE.covertEntityToBoList(subjectCategoryList);
+        List<Long> categoryIds = subjectCategoryBOList.stream().map(SubjectCategoryBO::getId).distinct().collect(Collectors.toList());
+        // 多个题目 分类 标签关系
+        List<SubjectMapping> subjectMappingList = subjectMappingService.lambdaQuery()
+                .in(CollectionUtils.isNotEmpty(categoryIds), SubjectMapping::getCategoryId, categoryIds).list();
+
         subjectCategoryBOList.forEach(item -> {
-            // TODO 待优化
-            Integer count = subjectCategoryService.querySubjectCount(item.getId());
-            subjectCategoryBO.setCount(count);
+            // TODO 待测试
+            long count = subjectMappingList.stream()
+                    .filter(subjectMapping -> Objects.equals(subjectMapping.getCategoryId(), item.getId()))
+                    .map(SubjectMapping::getSubjectId)
+                    .distinct()
+                    .count();
+            item.setCount((int) count);
         });
 
         return subjectCategoryBOList;
@@ -82,6 +92,7 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
                 SubjectCategoryBO.class, (key) -> getSubjectCategoryBOS(id));
         return subjectCategoryBOS;
     }
+
     private List<SubjectCategoryBO> getSubjectCategoryBOS(Long categoryId) {
         SubjectCategory subjectCategory = new SubjectCategory();
         subjectCategory.setParentId(categoryId);
@@ -108,6 +119,7 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
         });
         return categoryBOList;
     }
+
     private Map<Long, List<SubjectLabelBO>> getLabelBOList(SubjectCategoryBO category) {
         if (log.isInfoEnabled()) {
             log.info("getLabelBOList:{}", JSON.toJSONString(category));

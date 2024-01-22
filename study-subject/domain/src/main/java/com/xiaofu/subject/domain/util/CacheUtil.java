@@ -20,10 +20,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 /**
- * 缓存工具类
- *
- * @author: ChickenWing
- * @date: 2023/12/3
+ * @author xiaofu
+ * @date 2024/1/22 22:16
  */
 @Component
 public class CacheUtil<K, V> {

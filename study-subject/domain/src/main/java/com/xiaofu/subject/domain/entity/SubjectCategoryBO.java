@@ -34,7 +34,7 @@ public class SubjectCategoryBO implements Serializable {
     private Long parentId;
 
     /**
-     * 数量
+     * 题目数量
      */
     private Integer count;
 

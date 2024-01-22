@@ -1,10 +1,9 @@
-package com.xiaofu.subject.application.controller.covert;
+package com.xiaofu.subject.application.covert;
 
-import com.xiaofu.subject.application.controller.dto.SubjectCategoryDTO;
+import com.xiaofu.subject.application.dto.SubjectCategoryDTO;
 import com.xiaofu.subject.domain.entity.SubjectCategoryBO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.BeanUtils;
 
 import java.util.List;
 

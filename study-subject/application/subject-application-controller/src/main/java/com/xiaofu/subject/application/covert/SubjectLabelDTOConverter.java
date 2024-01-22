@@ -1,7 +1,7 @@
-package com.xiaofu.subject.application.controller.covert;
+package com.xiaofu.subject.application.covert;
 
-import com.xiaofu.subject.application.controller.dto.SubjectCategoryDTO;
-import com.xiaofu.subject.application.controller.dto.SubjectLabelDTO;
+import com.xiaofu.subject.application.dto.SubjectCategoryDTO;
+import com.xiaofu.subject.application.dto.SubjectLabelDTO;
 import com.xiaofu.subject.domain.entity.SubjectCategoryBO;
 import com.xiaofu.subject.domain.entity.SubjectLabelBO;
 import org.mapstruct.Mapper;
