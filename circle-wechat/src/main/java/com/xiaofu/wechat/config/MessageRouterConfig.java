@@ -32,7 +32,7 @@ public class MessageRouterConfig {
         // 创建消息路由
         final WxMpMessageRouter router = new WxMpMessageRouter(wxMpService);
         // 添加一个同步处理文本消息的路由规则 同时添加interceptor、handler
-        router.rule().async(false).msgType(WxConsts.XmlMsgType.TEXT).interceptor((WxMpMessageInterceptor) textInterceptor).handler(textHandler).end();
+        router.rule().async(false).msgType(WxConsts.XmlMsgType.TEXT).interceptor(textInterceptor).handler(textHandler).end();
         // 订阅事件
         router.rule().async(false).msgType(WxConsts.XmlMsgType.EVENT).event(WxConsts.EventType.SUBSCRIBE).handler(subscribeHandler).end();
 

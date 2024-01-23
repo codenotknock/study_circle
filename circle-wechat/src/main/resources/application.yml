@@ -1,5 +1,5 @@
 server:
-  port:  80
+  port:  99
 
 
 spring:
@@ -29,26 +29,26 @@ spring:
 # 自定义微信相关配置信息
 wx:
   # 消息模板ID
-  templateId: o9YG7vWS8It-mddU2Wnknf1jgzTqZtLeBQRLhF54SXQ
+  templateId:
   mp:
     # 微信公众号的appid
-    appId: wxe545adcf84d94fcb
+    appId:
     # 信公众号的app secret
-    secret: 5cb34dc288518e651e9311428ac72912
+    secret:
     # 微信公众号的toke
-    token: xiaofuasdasdasdsadsaasd
+    token:
     # 微信公众号的EncodingAESKey
-    aesKey: uIKqlr7e2RFRTLwCLVLNbL3jYJrkJuYhfMQXwMclwAO
-#    config-storage:
-#      redis:
-#        host: 47.113.198.8
-#        port: 6379
-#        password: xiaofu123
-#      type: jedis
-#      http-client-type: httpclient
-#      http-proxy-host:
-#      http-proxy-password:
-#      http-proxy-port:
-#      http-proxy-username:
-#      key-prefix:
+    aesKey:
+    config-storage:
+      redis:
+        host: 47.113.198.8
+        port: 6379
+        password: xiaofu123
+      type: jedis
+      http-client-type: httpclient
+      http-proxy-host:
+      http-proxy-password:
+      http-proxy-port:
+      http-proxy-username:
+      key-prefix:
 
