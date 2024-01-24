@@ -1,4 +1,4 @@
-package com.xiaofu.subject.infra.basic.config.interceptor;
+package com.xiaofu.subject.infra.config.interceptor;
 
 import com.baomidou.mybatisplus.extension.plugins.inner.InnerInterceptor;
 import org.apache.ibatis.executor.Executor;

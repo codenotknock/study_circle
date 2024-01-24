@@ -1,10 +1,10 @@
-package com.xiaofu.subject.infra.basic.config;
+package com.xiaofu.subject.infra.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.xiaofu.subject.infra.basic.config.interceptor.MybatisPlusSqlLogInterceptor;
+import com.xiaofu.subject.infra.config.interceptor.MybatisPlusSqlLogInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.context.annotation.Bean;
