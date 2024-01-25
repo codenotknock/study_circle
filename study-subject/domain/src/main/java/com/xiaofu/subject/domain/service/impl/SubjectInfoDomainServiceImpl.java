@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaofu.common.entitiy.page.PageResult;
+import com.xiaofu.subject.common.util.IdWorkerUtil;
+import com.xiaofu.subject.common.util.LoginUtil;
 import com.xiaofu.subject.domain.covert.SubjectInfoBOConverter;
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
 import com.xiaofu.subject.domain.entity.SubjectOptionBO;
@@ -12,8 +14,10 @@ import com.xiaofu.subject.domain.handler.SubjectTypeHandler;
 import com.xiaofu.subject.domain.handler.subject.SubjectTypeHandlerFactory;
 import com.xiaofu.subject.domain.service.SubjectInfoDomainService;
 import com.xiaofu.subject.infra.basic.entity.SubjectInfo;
+import com.xiaofu.subject.infra.basic.entity.SubjectInfoEs;
 import com.xiaofu.subject.infra.basic.entity.SubjectLabel;
 import com.xiaofu.subject.infra.basic.entity.SubjectMapping;
+import com.xiaofu.subject.infra.basic.service.SubjectEsService;
 import com.xiaofu.subject.infra.basic.service.SubjectInfoService;
 import com.xiaofu.subject.infra.basic.service.SubjectLabelService;
 import com.xiaofu.subject.infra.basic.service.SubjectMappingService;
@@ -50,6 +54,9 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
     @Autowired
     private SubjectLabelService subjectLabelService;
 
+    @Autowired
+    private SubjectEsService subjectEsService;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(SubjectInfoBO subjectInfoBO) {
@@ -74,6 +81,17 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
         });
         subjectMappingService.saveBatch(subjectMappingList);
 
+
+        //同步到es
+        SubjectInfoEs subjectInfoEs = new SubjectInfoEs();
+        subjectInfoEs.setDocId(new IdWorkerUtil(1, 1, 1).nextId());
+        subjectInfoEs.setSubjectId(subjectInfo.getId());
+        subjectInfoEs.setSubjectAnswer(subjectInfoBO.getSubjectAnswer());
+        subjectInfoEs.setCreateTime(System.currentTimeMillis());
+        subjectInfoEs.setCreateUser(LoginUtil.getLoginId());
+        subjectInfoEs.setSubjectName(subjectInfo.getSubjectName());
+        subjectInfoEs.setSubjectType(subjectInfo.getSubjectType());
+        subjectEsService.insert(subjectInfoEs);
     }
 
     @Override

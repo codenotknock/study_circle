@@ -1,5 +1,6 @@
 package com.xiaofu.subject.infra.basic.entity;
 
+import com.xiaofu.common.entitiy.page.PageInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.util.Date;
+import java.math.BigDecimal;
 
 /**
  * @author xiaofu
@@ -19,10 +20,14 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(indexName = "subject_index")
-public class SubjectInfoEs {
+public class SubjectInfoEs  extends PageInfo {
     @Field(type = FieldType.Long)
     @Id
     private Long id;
+
+    private Long subjectId;
+
+    private Long docId;
 
     @Field(type = FieldType.Text, analyzer = "ik_smart")
     private String subjectName;
@@ -30,11 +35,17 @@ public class SubjectInfoEs {
     @Field(type = FieldType.Text, analyzer = "ik_smart")
     private String subjectAnswer;
 
+    private Integer subjectType;
+
+    private String keyWord;
+
+    private BigDecimal score;
+
     @Field(type = FieldType.Keyword)
     private String createUser;
 
     @Field(type = FieldType.Date, index = false)
-    private Date createTime;
+    private Long createTime;
 
 
 
