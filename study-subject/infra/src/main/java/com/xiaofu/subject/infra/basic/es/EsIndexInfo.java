@@ -13,8 +13,14 @@ import java.util.Map;
 @Data
 public class EsIndexInfo implements Serializable {
 
-    private String docId;
+    /**
+     * 集群名称
+     */
+    private String clusterName;
 
-    private Map<String, Object> data;
+    /**
+     * 索引名称
+     */
+    private String indexName;
 
 }
