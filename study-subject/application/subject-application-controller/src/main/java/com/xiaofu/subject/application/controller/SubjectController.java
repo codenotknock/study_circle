@@ -115,9 +115,8 @@ public class SubjectController {
         }
     }
 
-    /**
-     * 全文检索
-     */
+
+    @ApiOperation(value = "全文检索")
     @PostMapping("/getSubjectPageBySearch")
     public Result<PageResult<SubjectInfoEs>> getSubjectPageBySearch(@RequestBody SubjectInfoDTO subjectInfoDTO) {
         try {
@@ -125,7 +124,7 @@ public class SubjectController {
                 log.info("SubjectController.getSubjectPageBySearch.dto:{}", JSON.toJSONString(subjectInfoDTO));
             }
             Preconditions.checkArgument(StringUtils.isNotBlank(subjectInfoDTO.getKeyWord()), "关键词不能为空");
-            SubjectInfoBO subjectInfoBO = SubjectInfoDTOConverter.INSTANCE.convertDTOToBO(subjectInfoDTO);
+            SubjectInfoBO subjectInfoBO = SubjectInfoDTOConverter.INSTANCE.convertDtoToBo(subjectInfoDTO);
             subjectInfoBO.setPageNo(subjectInfoDTO.getPageNo());
             subjectInfoBO.setPageSize(subjectInfoDTO.getPageSize());
             PageResult<SubjectInfoEs> boPageResult = subjectInfoDomainService.getSubjectPageBySearch(subjectInfoBO);
@@ -137,4 +136,18 @@ public class SubjectController {
     }
 
 
+
+
+    @ApiOperation(value = "获取题目贡献榜")
+    @PostMapping("/getContributeList")
+    public Result<List<SubjectInfoDTO>> getContributeList() {
+        try {
+            List<SubjectInfoBO> boList = subjectInfoDomainService.getContributeList();
+            List<SubjectInfoDTO> dtoList = SubjectInfoDTOConverter.INSTANCE.convertBoToDtoList(boList);
+            return Result.ok(dtoList);
+        } catch (Exception e) {
+            log.error("SubjectCategoryController.getContributeList.error:{}", e.getMessage(), e);
+            return Result.fail("获取贡献榜失败");
+        }
+    }
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xiaofu.common.entitiy.page.PageResult;
+import com.xiaofu.subject.common.constants.SubjectConstant;
 import com.xiaofu.subject.common.util.IdWorkerUtil;
 import com.xiaofu.subject.common.util.LoginUtil;
 import com.xiaofu.subject.domain.covert.SubjectInfoBOConverter;
@@ -12,6 +13,7 @@ import com.xiaofu.subject.domain.entity.SubjectInfoBO;
 import com.xiaofu.subject.domain.entity.SubjectOptionBO;
 import com.xiaofu.subject.domain.handler.SubjectTypeHandler;
 import com.xiaofu.subject.domain.handler.subject.SubjectTypeHandlerFactory;
+import com.xiaofu.subject.domain.redis.RedisUtil;
 import com.xiaofu.subject.domain.service.SubjectInfoDomainService;
 import com.xiaofu.subject.infra.basic.entity.SubjectInfo;
 import com.xiaofu.subject.infra.basic.entity.SubjectInfoEs;
@@ -21,8 +23,11 @@ import com.xiaofu.subject.infra.basic.service.SubjectEsService;
 import com.xiaofu.subject.infra.basic.service.SubjectInfoService;
 import com.xiaofu.subject.infra.basic.service.SubjectLabelService;
 import com.xiaofu.subject.infra.basic.service.SubjectMappingService;
+import com.xiaofu.subject.infra.rpc.UserInfo;
+import com.xiaofu.subject.infra.rpc.UserRpc;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +36,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -57,6 +63,11 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
     @Autowired
     private SubjectEsService subjectEsService;
 
+    @Autowired
+    private UserRpc userRpc;
+
+    @Autowired
+    private RedisUtil redisUtil;
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(SubjectInfoBO subjectInfoBO) {
@@ -81,8 +92,10 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
         });
         subjectMappingService.saveBatch(subjectMappingList);
 
+        // redis放入zadd计入排行榜
+        redisUtil.addScore(SubjectConstant.RANK_KEY, LoginUtil.getLoginId(), 1);
 
-        //同步到es
+        // 同步到es
         SubjectInfoEs subjectInfoEs = new SubjectInfoEs();
         subjectInfoEs.setDocId(new IdWorkerUtil(1, 1, 1).nextId());
         subjectInfoEs.setSubjectId(subjectInfo.getId());
@@ -160,5 +173,25 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
     }
 
 
+    @Override
+    public List<SubjectInfoBO> getContributeList() {
+        Set<ZSetOperations.TypedTuple<String>> typedTuples = redisUtil.rankWithScore(SubjectConstant.RANK_KEY, 0, 5);
+        if (log.isInfoEnabled()) {
+            log.info("getContributeList.typedTuples:{}", JSON.toJSONString(typedTuples));
+        }
+        if (CollectionUtils.isEmpty(typedTuples)) {
+            return Collections.emptyList();
+        }
+        List<SubjectInfoBO> boList = new LinkedList<>();
+        typedTuples.forEach((rank -> {
+            SubjectInfoBO subjectInfoBO = new SubjectInfoBO();
+            subjectInfoBO.setSubjectCount(rank.getScore().intValue());
+            UserInfo userInfo = userRpc.getUserInfo(rank.getValue());
+            subjectInfoBO.setCreateUser(userInfo.getNickName());
+            subjectInfoBO.setCreateUserAvatar(userInfo.getAvatar());
+            boList.add(subjectInfoBO);
+        }));
+        return boList;
+    }
 
 }

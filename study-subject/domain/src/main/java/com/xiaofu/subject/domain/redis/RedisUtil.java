@@ -2,6 +2,7 @@ package com.xiaofu.subject.domain.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -97,5 +98,22 @@ public class RedisUtil {
 
     public Object rank(String key, Object obj) {
         return redisTemplate.opsForZSet().rank(key, obj);
+    }
+
+    public Set<ZSetOperations.TypedTuple<String>> rankWithScore(String key, long start, long end) {
+        Set<ZSetOperations.TypedTuple<String>> set = redisTemplate.opsForZSet().reverseRangeWithScores(key, start, end);
+        return set;
+    }
+
+    public void putHash(String key, String hashKey, Object hashVal) {
+        redisTemplate.opsForHash().put(key, hashKey, hashVal);
+    }
+
+    public Integer getInt(String key) {
+        return (Integer) redisTemplate.opsForValue().get(key);
+    }
+
+    public void increment(String key,Integer count) {
+        redisTemplate.opsForValue().increment(key,count);
     }
 }
