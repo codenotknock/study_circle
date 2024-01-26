@@ -2,6 +2,7 @@ package com.xiaofu.subject.domain.service;
 
 import com.xiaofu.common.entitiy.page.PageResult;
 import com.xiaofu.subject.domain.entity.SubjectInfoBO;
+import com.xiaofu.subject.infra.basic.entity.SubjectInfoEs;
 
 /**
  * @author xiaofu
@@ -19,4 +20,6 @@ public interface SubjectInfoDomainService {
     PageResult<SubjectInfoBO> getSubjectPage(SubjectInfoBO subjectInfoBO);
 
     SubjectInfoBO querySubjectInfo(SubjectInfoBO subjectInfoBO);
+
+    PageResult<SubjectInfoEs> getSubjectPageBySearch(SubjectInfoBO subjectInfoBO);
 }
