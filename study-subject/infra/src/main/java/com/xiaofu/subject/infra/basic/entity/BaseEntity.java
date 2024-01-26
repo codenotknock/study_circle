@@ -23,12 +23,15 @@ public class BaseEntity implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id = 0L;
 
+    @TableField(fill = FieldFill.INSERT)
     private String createdBy;
 
     @TableField(fill = FieldFill.INSERT)
     private Timestamp createdTime;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
+
 
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Timestamp updateTime;

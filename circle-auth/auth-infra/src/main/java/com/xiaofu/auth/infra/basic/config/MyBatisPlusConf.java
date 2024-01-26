@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.xiaofu.auth.common.util.LoginUtil;
 import com.xiaofu.auth.infra.basic.config.interceptor.MybatisPlusSqlLogInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
@@ -47,12 +48,15 @@ public class MyBatisPlusConf {
                 log.info("start insert fill ....");
                 this.strictInsertFill(metaObject, "createdTime", Timestamp.class, new Timestamp(System.currentTimeMillis()));
                 this.strictInsertFill(metaObject, "updateTime", Timestamp.class, new Timestamp(System.currentTimeMillis()));
+                this.strictInsertFill(metaObject, "createdBy", String.class, LoginUtil.getLoginId());
+                this.strictInsertFill(metaObject, "updateBy", String.class, LoginUtil.getLoginId());
                 this.strictInsertFill(metaObject, "isDeleted", Integer.class, 0);
             }
 
             @Override
             public void updateFill(MetaObject metaObject) {
                 log.info("start update fill ....");
+                this.strictInsertFill(metaObject, "updateBy", String.class, LoginUtil.getLoginId());
                 this.strictUpdateFill(metaObject, "updateTime", Timestamp.class, new Timestamp(System.currentTimeMillis()));
             }
         };
