@@ -1,5 +1,6 @@
 package com.xiaofu.subject.domain.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.xiaofu.subject.common.constants.SubjectConstant;
 import com.xiaofu.subject.common.enums.SubjectLikedStatusEnum;
 import com.xiaofu.subject.domain.covert.SubjectLikedBOConverter;
@@ -8,9 +9,14 @@ import com.xiaofu.subject.domain.redis.RedisUtil;
 import com.xiaofu.subject.domain.service.SubjectLikedDomainService;
 import com.xiaofu.subject.infra.basic.entity.SubjectLiked;
 import com.xiaofu.subject.infra.basic.service.SubjectLikedService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -19,6 +25,7 @@ import java.util.Objects;
  * @des
  */
 
+@Slf4j
 @Service
 public class SubjectLikedDomainServiceImpl implements SubjectLikedDomainService {
     @Autowired
@@ -71,4 +78,29 @@ public class SubjectLikedDomainServiceImpl implements SubjectLikedDomainService 
         SubjectLiked subjectLiked = SubjectLikedBOConverter.INSTANCE.convertBoToEntity(subjectLikedBO);
         return subjectLikedService.removeById(subjectLiked);
     }
+
+    @Override
+    public void syncLiked() {
+        Map<Object, Object> subjectLikedMap = redisUtil.getHashAndDelete(SubjectConstant.SUBJECT_LIKED_KEY);
+        if (log.isInfoEnabled()) {
+            log.info("syncLiked.subjectLikedMap:{}", JSON.toJSONString(subjectLikedMap));
+        }
+        if (MapUtils.isEmpty(subjectLikedMap)) {
+            return;
+        }
+        //批量同步到数据库
+        List<SubjectLiked> subjectLikedList = new LinkedList<>();
+        subjectLikedMap.forEach((key, val) -> {
+            SubjectLiked subjectLiked = new SubjectLiked();
+            String[] keyArr = key.toString().split(":");
+            String subjectId = keyArr[0];
+            String likedUser = keyArr[1];
+            subjectLiked.setSubjectId(Long.valueOf(subjectId));
+            subjectLiked.setLikeUserId(likedUser);
+            subjectLiked.setStatus(Integer.valueOf(val.toString()));
+            subjectLikedList.add(subjectLiked);
+        });
+        subjectLikedService.saveBatch(subjectLikedList);
+    }
+
 }

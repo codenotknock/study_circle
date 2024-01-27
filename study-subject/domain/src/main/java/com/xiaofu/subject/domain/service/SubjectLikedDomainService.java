@@ -33,4 +33,9 @@ public interface SubjectLikedDomainService {
      * 删除 题目点赞表 信息
      */
     Boolean delete(SubjectLikedBO subjectLikedBO);
+
+    /**
+     * 同步点赞数据
+     */
+    void syncLiked();
 }

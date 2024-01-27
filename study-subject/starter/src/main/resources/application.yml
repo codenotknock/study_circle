@@ -59,3 +59,17 @@ mybatis-plus:
     cache-enabled: true
     auto-mapping-unknown-column-behavior: warning
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志   使用自定义日志输出 已实现
+
+
+xxl:
+  job:
+    admin:
+      addresses: http://127.0.0.1:8080/xxl-job-admin
+    accessToken: default_token
+    executor:
+      appname: circle-subjcet
+      address:
+      ip: 127.0.0.1
+      port: 9999
+      logpath: /data/applogs/xxl-job/jobhandler
+      logretentiondays: 30

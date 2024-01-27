@@ -15,6 +15,7 @@ import com.xiaofu.subject.domain.handler.SubjectTypeHandler;
 import com.xiaofu.subject.domain.handler.subject.SubjectTypeHandlerFactory;
 import com.xiaofu.subject.domain.redis.RedisUtil;
 import com.xiaofu.subject.domain.service.SubjectInfoDomainService;
+import com.xiaofu.subject.domain.service.SubjectLikedDomainService;
 import com.xiaofu.subject.infra.basic.entity.SubjectInfo;
 import com.xiaofu.subject.infra.basic.entity.SubjectInfoEs;
 import com.xiaofu.subject.infra.basic.entity.SubjectLabel;
@@ -68,6 +69,9 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
 
     @Autowired
     private RedisUtil redisUtil;
+
+    @Autowired
+    private SubjectLikedDomainService subjectLikedDomainService;
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(SubjectInfoBO subjectInfoBO) {
@@ -160,6 +164,9 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
         List<SubjectLabel> labelList = subjectLabelService.listByIds(labelIds);
         List<String> labelName = labelList.stream().map(SubjectLabel::getLabelName).collect(Collectors.toList());
         infoBO.setLabelName(labelName);
+        infoBO.setLiked(subjectLikedDomainService.isLiked(subjectInfoBO.getId().toString(), LoginUtil.getLoginId()));
+        infoBO.setLikedCount(subjectLikedDomainService.getLikedCount(subjectInfoBO.getId().toString()));
+
         return infoBO;
     }
 

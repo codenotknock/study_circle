@@ -9,5 +9,13 @@
     <artifactId>subject-application-job</artifactId>
     <name>subject-application-job</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+
+    </dependencies>
 
 </project>
