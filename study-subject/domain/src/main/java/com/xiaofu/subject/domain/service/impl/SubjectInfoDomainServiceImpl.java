@@ -145,9 +145,12 @@ public class SubjectInfoDomainServiceImpl implements SubjectInfoDomainService {
             }
             item.setLabelName(labelNames);
         });
+        PageResult<SubjectInfoBO> subjectInfoBOPageResult = new PageResult<>();
+        subjectInfoBOPageResult.setPageSize(subjectInfoBO.getPageSize());
+        subjectInfoBOPageResult.setPageNo(subjectInfoBO.getPageNo());
+        subjectInfoBOPageResult.setRecords(subjectInfoBOList);
 
-
-        return new PageResult<>(subjectInfoBOList);
+        return subjectInfoBOPageResult;
     }
 
     @Override

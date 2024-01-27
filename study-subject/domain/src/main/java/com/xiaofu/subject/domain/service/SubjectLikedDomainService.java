@@ -1,5 +1,6 @@
 package com.xiaofu.subject.domain.service;
 
+import com.xiaofu.common.entitiy.page.PageResult;
 import com.xiaofu.subject.domain.entity.SubjectLikedBO;
 
 /**
@@ -38,4 +39,6 @@ public interface SubjectLikedDomainService {
      * 同步点赞数据
      */
     void syncLiked();
+
+    PageResult<SubjectLikedBO> getSubjectLikedPage(SubjectLikedBO subjectLikedBO);
 }

@@ -10,6 +10,7 @@ import com.xiaofu.auth.application.dto.AuthUserDTO;
 import com.xiaofu.auth.domain.entity.AuthUserBO;
 import com.xiaofu.auth.domain.service.AuthUserDomainService;
 import com.xiaofu.common.entitiy.Result;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,9 +32,8 @@ public class UserController {
     @Autowired
     private AuthUserDomainService authUserDomainService;
 
-    /**
-     * 用户注册
-     */
+
+    @ApiOperation(value = "用户注册")
     @PostMapping("register")
     public Result<Boolean> register(@RequestBody AuthUserDTO authUserDTO) {
         try {
@@ -49,9 +49,8 @@ public class UserController {
         }
     }
 
-    /**
-     * 修改用户信息
-     */
+
+    @ApiOperation(value = "修改用户")
     @PostMapping("update")
     public Result<Boolean> update(@RequestBody AuthUserDTO authUserDTO) {
         try {
@@ -86,9 +85,8 @@ public class UserController {
 //        }
 //    }
 
-    /**
-     * 用户退出
-     */
+
+    @ApiOperation(value = "用户退出")
     @PostMapping("logOut")
     public Result logOut(@RequestParam String userName) {
         try {
@@ -102,9 +100,8 @@ public class UserController {
         }
     }
 
-    /**
-     * 删除用户
-     */
+
+    @ApiOperation(value = "删除用户")
     @PostMapping("delete")
     public Result<Boolean> delete(@RequestBody AuthUserDTO authUserDTO) {
         try {
@@ -123,9 +120,7 @@ public class UserController {
         Preconditions.checkArgument(!StringUtils.isBlank(authUserDTO.getUserName()), "用户名不能为空");
     }
 
-    /**
-     * 用户启用/禁用
-     */
+    @ApiOperation(value = "用户启用/禁用")
     @PostMapping("changeStatus")
     public Result<Boolean> changeStatus(@RequestBody AuthUserDTO authUserDTO) {
         try {

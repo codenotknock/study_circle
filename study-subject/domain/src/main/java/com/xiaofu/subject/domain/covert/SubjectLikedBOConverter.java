@@ -5,6 +5,8 @@ import com.xiaofu.subject.infra.basic.entity.SubjectLiked;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 /**
  * @author xiaofu
  * @date 2024/1/28 2:51
@@ -15,4 +17,6 @@ public interface SubjectLikedBOConverter {
     SubjectLikedBOConverter INSTANCE= Mappers.getMapper(SubjectLikedBOConverter.class);
 
     SubjectLiked convertBoToEntity(SubjectLikedBO subjectLikedBO);
+
+    List<SubjectLikedBO> covertEntityToBoList(List<SubjectLiked> subjectLikedList);
 }

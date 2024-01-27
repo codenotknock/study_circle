@@ -3,16 +3,21 @@ package com.xiaofu.subject.application.controller;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Preconditions;
 import com.xiaofu.common.entitiy.Result;
+import com.xiaofu.common.entitiy.page.PageResult;
 import com.xiaofu.subject.application.covert.SubjectLikedDTOConverter;
 import com.xiaofu.subject.application.dto.SubjectLikedDTO;
 import com.xiaofu.subject.common.util.LoginUtil;
 import com.xiaofu.subject.domain.entity.SubjectLikedBO;
 import com.xiaofu.subject.domain.service.SubjectLikedDomainService;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author xiaofu
@@ -27,9 +32,8 @@ public class SubjectLikedController {
     @Autowired
     private SubjectLikedDomainService subjectLikedDomainService;
 
-    /**
-     * 新增题目点赞表
-     */
+
+    @ApiOperation(value = "新增题目点赞")
     @RequestMapping("add")
     public Result<Boolean> add(@RequestBody SubjectLikedDTO subjectLikedDTO) {
 
@@ -52,9 +56,8 @@ public class SubjectLikedController {
 
     }
 
-    /**
-     * 修改题目点赞表
-     */
+
+    @ApiOperation(value = "修改题目点赞")
     @RequestMapping("update")
     public Result<Boolean> update(@RequestBody SubjectLikedDTO subjectLikedDTO) {
 
@@ -80,9 +83,8 @@ public class SubjectLikedController {
 
     }
 
-    /**
-     * 删除题目点赞表
-     */
+
+    @ApiOperation(value = "删除题目点赞")
     @RequestMapping("delete")
     public Result<Boolean> delete(@RequestBody SubjectLikedDTO subjectLikedDTO) {
 
@@ -105,6 +107,31 @@ public class SubjectLikedController {
             log.error("SubjectLikedController.delete.error:{}", e.getMessage(), e);
             return Result.fail("删除题目点赞表信息失败");
         }
+    }
 
+
+    @ApiOperation(value = "查询我的点赞列表")
+    @PostMapping("/getSubjectLikedPage")
+    public Result<PageResult<SubjectLikedDTO>> getSubjectLikedPage(@RequestBody SubjectLikedDTO subjectLikedDTO) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("SubjectController.getSubjectLikedPage.dto:{}", JSON.toJSONString(subjectLikedDTO));
+            }
+            SubjectLikedBO subjectLikedBO = SubjectLikedDTOConverter.INSTANCE.convertDtoToBo(subjectLikedDTO);
+            subjectLikedBO.setPageNo(subjectLikedDTO.getPageNo());
+            subjectLikedBO.setPageSize(subjectLikedDTO.getPageSize());
+            PageResult<SubjectLikedBO> boPageResult = subjectLikedDomainService.getSubjectLikedPage(subjectLikedBO);
+            List<SubjectLikedDTO> subjectLikedDTOList = SubjectLikedDTOConverter.INSTANCE.convertBoToDtoList(boPageResult.getResult());
+            PageResult<SubjectLikedDTO> subjectLikedDTOPageResult = new PageResult<>();
+            subjectLikedDTOPageResult.setPageSize(subjectLikedDTO.getPageSize());
+            subjectLikedDTOPageResult.setPageNo(subjectLikedDTO.getPageNo());
+            subjectLikedDTOPageResult.setRecords(subjectLikedDTOList);
+            return Result.ok(subjectLikedDTOPageResult);
+        } catch (Exception e) {
+            log.error("SubjectCategoryController.getSubjectLikedPage.error:{}", e.getMessage(), e);
+            return Result.fail("分页查询我的点赞失败");
+
+
+        }
     }
 }

@@ -1,8 +1,10 @@
 package com.xiaofu.subject.application.dto;
 
+import com.xiaofu.common.entitiy.page.PageInfo;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -13,7 +15,7 @@ import java.sql.Timestamp;
 
 @Data
 @Accessors(chain = true)
-public class SubjectLikedDTO {
+public class SubjectLikedDTO extends PageInfo implements Serializable {
     /**
      * 主键
      */

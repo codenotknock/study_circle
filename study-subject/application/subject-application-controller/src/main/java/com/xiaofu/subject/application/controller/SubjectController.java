@@ -85,7 +85,11 @@ public class SubjectController {
             }
 
             List<SubjectInfoDTO> records = SubjectInfoDTOConverter.INSTANCE.convertBoToDtoList(infoBOPageResult.getResult());
-            return Result.ok(new PageResult<>(records));
+            PageResult<SubjectInfoDTO> subjectInfoDTOPageResult = new PageResult<>();
+            subjectInfoDTOPageResult.setPageSize(subjectInfoDTO.getPageSize());
+            subjectInfoDTOPageResult.setPageNo(subjectInfoDTO.getPageNo());
+            subjectInfoDTOPageResult.setRecords(records);
+            return Result.ok(subjectInfoDTOPageResult);
         } catch (Exception e) {
             log.error("SubjectCategoryController.add.error:{}", e.getMessage(), e);
             return Result.fail("分页查询题目失败");

@@ -1,6 +1,8 @@
 package com.xiaofu.subject.domain.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xiaofu.common.entitiy.page.PageResult;
 import com.xiaofu.subject.common.constants.SubjectConstant;
 import com.xiaofu.subject.common.enums.SubjectLikedStatusEnum;
 import com.xiaofu.subject.domain.covert.SubjectLikedBOConverter;
@@ -101,6 +103,20 @@ public class SubjectLikedDomainServiceImpl implements SubjectLikedDomainService 
             subjectLikedList.add(subjectLiked);
         });
         subjectLikedService.saveBatch(subjectLikedList);
+    }
+
+    @Override
+    public PageResult<SubjectLikedBO> getSubjectLikedPage(SubjectLikedBO subjectLikedBO) {
+        Page<SubjectLiked> page = subjectLikedBO.toMpPage();
+        Page<SubjectLiked> subjectLikedPage = subjectLikedService.lambdaQuery().eq(SubjectLiked::getLikeUserId, subjectLikedBO.getLikeUserId())
+                .page(page);
+        List<SubjectLiked> records = subjectLikedPage.getRecords();
+        List<SubjectLikedBO> subjectLikedBOList = SubjectLikedBOConverter.INSTANCE.covertEntityToBoList(records);
+        PageResult<SubjectLikedBO> pageResult = new PageResult<>();
+        pageResult.setPageSize(subjectLikedBO.getPageSize());
+        pageResult.setPageNo(subjectLikedBO.getPageNo());
+        pageResult.setRecords(subjectLikedBOList);
+        return pageResult;
     }
 
 }
