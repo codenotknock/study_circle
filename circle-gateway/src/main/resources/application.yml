@@ -5,26 +5,26 @@ spring:
     gateway:
       routes:
         - id: oss
-          uri: lb://circle-oss-dev
+          uri: lb://circle-oss
           predicates:
             - Path=/oss/**
           filters:
             - StripPrefix=1
         - id: auth
-          uri: lb://circle-auth-dev
+          uri: lb://circle-auth
           predicates:
             - Path=/auth/**
           filters:
             - StripPrefix=1
         - id: subject
-          uri: lb://circle-subject-dev
+          uri: lb://circle-subject
           predicates:
             - Path=/subject/**
           filters:
             - StripPrefix=1
   redis:
     # Redis数据库索引（默认为0）
-    database: 1
+    database: 0
     # Redis服务器地址
     host: 47.113.198.8
     # Redis服务器连接端口
